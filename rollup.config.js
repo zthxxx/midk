@@ -1,9 +1,10 @@
 import builtins from 'builtin-modules'
-import copy from 'rollup-plugin-copy'
+import json from '@rollup/plugin-json'
+import commonjs from '@rollup/plugin-commonjs'
+import resolve from '@rollup/plugin-node-resolve'
 import strip from '@rollup/plugin-strip'
 import typescript from 'rollup-plugin-typescript'
-import commonjs from 'rollup-plugin-commonjs'
-import resolve from 'rollup-plugin-node-resolve'
+import copy from 'rollup-plugin-copy'
 import filesize from 'rollup-plugin-filesize'
 import progress from 'rollup-plugin-progress'
 import packageJson from './package.json'
@@ -21,7 +22,6 @@ export default {
   external: [
     ...builtins,
     ...Object.keys(packageJson.dependencies),
-    'signale/signale',
   ],
   treeshake: {
     moduleSideEffects: false,
@@ -30,22 +30,22 @@ export default {
     progress(),
     copy({
       targets: [
-        { src: 'src/*.zsh', dest: 'dist/' },
+        { src: 'src/portals.ts', dest: 'dist/' },
       ]
     }),
     resolve(),
+    json(),
+    typescript(),
     commonjs({
       include: 'node_modules/**',
       sourceMap: false,
     }),
-    typescript(),
     strip({
       include: [
         '**/*.js',
         '**/*.ts',
       ],
       functions: [
-        'signale.*',
       ],
     }),
     filesize(),

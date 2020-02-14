@@ -1,19 +1,33 @@
 import signale from './signale'
 import {
-  KeyType,
+  MessageStatus,
   NoteCode,
 } from './midi'
-import { regReader } from './readMIDI'
-import { PressStateMap, sendKey } from './sendKey'
+import { KeypressHandler, regHandler, startListener } from './readMIDI'
+import portals from './portals'
+import { noteToSendKey } from './sendKey'
 
-regReader((keyType, keyCode) => {
-  if (!KeyType[keyType] || !NoteCode[keyCode]) {
+export const noteHander: KeypressHandler = ({
+  status: noteEvent,
+  channel: noteCode,
+}) => {
+  if (!NoteCode[noteCode]) {
     signale.warn('unknow key-type or key-code', {
-      keyType,
-      keyCode,
+      status: MessageStatus[noteEvent],
+      noteCode,
     })
   }
-  sendKey(keyCode, PressStateMap[keyType])
-})
+  noteToSendKey({
+    noteCode,
+    pressed: noteEvent === MessageStatus.noteOnEvent,
+    portals,
+  })
+}
 
-signale.info('MIDI init')
+
+regHandler(MessageStatus.noteOnEvent, noteHander)
+regHandler(MessageStatus.noteOffEvent, noteHander)
+
+export default {
+  run: startListener,
+}

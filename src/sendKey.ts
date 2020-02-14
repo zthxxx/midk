@@ -2,29 +2,62 @@
 import robot from 'robotjs'
 import signale from './signale'
 import { NoteCode } from './midi'
-import { Portals } from './keyboard'
-import { KeyType } from './midi'
+import { PortalsMap, DefaultPortals } from './keyMapping'
+import { NamedKey, modifiers } from './keyboard'
 
 export enum PressState {
   down = 'down',
   up = 'up',
 }
 
-export const PressStateMap = {
-  [KeyType.noteKeyDown]: PressState.down,
-  [KeyType.noteKeyUp]: PressState.up,
-}
+export const modifieds = new Set<NamedKey>()
 
-export const sendKey = (noteCode: NoteCode, pressed: PressState) => {
-  const key = Portals[noteCode]
-  if (!key) {
-    signale.warn('Cant find key map for code:', noteCode)
+export const sendKey = (key: NamedKey, pressed: boolean) => {
+  if (key === NamedKey.NULL) {
+    signale.warn('[KBD] null key, skip')
     return
   }
-  signale.info('KBD sendKey', {
-    noteCode,
-    pressed,
+
+  const isModifier = modifiers.has(key)
+
+  if (isModifier) {
+    signale.info('[KBD] Key is modifier', {
+      key,
+      pressed,
+    })
+
+    if (pressed) {
+      modifieds.add(key)
+    } else {
+      modifieds.delete(key)
+    }
+    return
+  }
+
+  // release a pressed not need modifier
+  robot.keyToggle(
     key,
+    pressed ? PressState.down : PressState.up,
+    pressed ? [...modifieds] : [],
+  )
+}
+
+export const noteToSendKey = ({ noteCode, pressed, portals = DefaultPortals }: {
+  noteCode: NoteCode,
+  pressed: boolean,
+  portals?: PortalsMap,
+}) => {
+  const key = portals[noteCode]
+  if (!key) {
+    signale.warn('[KBD] Cant find key map for code:', noteCode)
+    return
+  }
+
+  signale.info('[KBD] KBD sendKey', {
+    noteCode,
+    key,
+    pressed,
   })
-  robot.keyToggle(key, pressed)
+
+  sendKey(key, pressed)
 }

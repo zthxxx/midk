@@ -1,5 +1,5 @@
 #!/usr/bin/env node
 
-const midi = require('..')
+const midk = require('..')
 
-midi.mapping()
+midk.run()

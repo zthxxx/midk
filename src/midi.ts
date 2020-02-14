@@ -1,9 +1,24 @@
-export enum KeyType {
-  noteKeyDown = 144,
-  noteKeyUp = 128
+// https://www.midi.org/specifications/item/table-1-summary-of-midi-message
+export enum MessageStatus {
+  noteOffEvent = 0b1000 << 4,
+  noteOnEvent = 0b1001 << 4,
+  polyphonicPressure = 0b1010 << 4,
+  controlChange = 0b1011 << 4,
+  programChange = 0b1100 << 4,
+  channelPressure = 0b1101 << 4,
+  pitchBendChange = 0b1110 << 4,
 }
 
-// MIDIPlus X8 88 keys
+export type MessageData = number
+
+export type Message = [
+  MessageStatus,
+  MessageData,
+  MessageData,
+]
+
+// 88 keys: [A2 ... c5]
+// 61 keys: [C ... c4]
 export enum NoteCode {
   A2 = 21,
   A2Sharp,
@@ -48,7 +63,7 @@ export enum NoteCode {
   aSharp,
   b,
 
-  c1 = 60,
+  c1,
   c1Sharp,
   d1,
   d1Sharp,
@@ -103,12 +118,17 @@ export enum NoteCode {
   c5,
 }
 
-export type KeyVolume = number
+export type NoteVelocity = number
+
+export type NoteEvent = Extract<
+  MessageStatus,
+  typeof MessageStatus.noteOnEvent | typeof MessageStatus.noteOffEvent
+>
 
 export type NoteMessage = [
-  KeyType,
+  NoteEvent,
   NoteCode,
-  KeyVolume,
+  NoteVelocity,
 ]
 
 export type Timestamp = number

@@ -1,10 +1,10 @@
+// https://github.com/justinlatimer/node-midi
 import midi from 'midi'
 import signale from './signale'
 import {
-  KeyType,
-  NoteCode,
-  KeyVolume,
-  NoteMessage,
+  MessageStatus,
+  MessageData,
+  Message,
   Timestamp,
 } from './midi'
 
@@ -24,26 +24,45 @@ input.getPortName(0)
 
 export default input
 
-export type KeyHandler = (
-  keyType: KeyType,
-  key: NoteCode,
-  value?: KeyVolume,
+export interface KeypressParams {
+  status: MessageStatus,
+  channel: MessageData,
+  value?: MessageData,
   timestamp?: Timestamp,
-) => void
+}
 
-export const regReader= (handler: KeyHandler) => {
-  input.on('message', (timestamp: Timestamp, message: NoteMessage) => {
-    const [keyType, keyCode, value] = message
-    signale.info('MIDI', {
+// return true to stop processing
+export type KeypressHandler = (keypress: KeypressParams) => void | boolean
+
+export const handlersMap = new Map<MessageStatus, KeypressHandler[]>()
+
+export const regHandler= (status: MessageStatus, handler: KeypressHandler) => {
+  const handlers = handlersMap.get(status) ?? []
+  handlersMap.set(
+    status,
+    [
+      ...handlers,
+      handler,
+    ],
+  )
+}
+
+export const startListener = () => {
+  input.on('message', (timestamp: Timestamp, message: Message) => {
+    const [status, channel, value] = message
+    signale.info('[MIDI]', {
       message,
       timestamp,
-      note: NoteCode[keyCode],
-      status: KeyType[keyType],
     })
-    handler?.(keyType, keyCode, value, timestamp)
+    const handlers = handlersMap.get(status) ?? []
+    signale.info('[MIDI] find handlers', handlers.map(fun => fun.name))
+    for (let handler of handlers) {
+      if (handler({ status, channel, value, timestamp })) break
+    }
   })
 
   // Open the first available input port.
   input.openPort(0);
-}
 
+  signale.info('[MIDI] started listening')
+}
