@@ -1,9 +1,10 @@
 import { NoteCode as Note } from './midi'
 import { NamedKey as Key } from './keyboard'
 
-export type PortalsMap = Record<Note, Key>
+export type PortalMap = Record<Note, Key>
+export type FnPortalMaps = Partial<Record<Note, Partial<PortalMap>>>
 
-export const DefaultPortals: PortalsMap = {
+export const DefaultPortal: PortalMap = {
   [Note.A2]: Key.NULL,
   [Note.A2Sharp]: Key.NULL,
   [Note.B2]: Key.NULL,

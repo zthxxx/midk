@@ -2,7 +2,7 @@
 import robot from 'robotjs'
 import signale from './signale'
 import { NoteCode } from './midi'
-import { PortalsMap, DefaultPortals } from './keyMapping'
+import { PortalMap, DefaultPortal } from './keyMapping'
 import { NamedKey, modifiers } from './keyboard'
 
 export enum PressState {
@@ -31,23 +31,28 @@ export const sendKey = (key: NamedKey, pressed: boolean) => {
     } else {
       modifieds.delete(key)
     }
-    return
   }
+
+  signale.info('[KBD] press key', {
+    key,
+    pressed,
+    modifieds: [...modifieds],
+  })
 
   // release a pressed not need modifier
   robot.keyToggle(
     key,
     pressed ? PressState.down : PressState.up,
-    pressed ? [...modifieds] : [],
+    [...modifieds],
   )
 }
 
-export const noteToSendKey = ({ noteCode, pressed, portals = DefaultPortals }: {
+export const noteToSendKey = ({ noteCode, pressed, portal = DefaultPortal }: {
   noteCode: NoteCode,
   pressed: boolean,
-  portals?: PortalsMap,
+  portal?: PortalMap,
 }) => {
-  const key = portals[noteCode]
+  const key = portal[noteCode]
   if (!key) {
     signale.warn('[KBD] Cant find key map for code:', noteCode)
     return

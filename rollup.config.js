@@ -30,7 +30,7 @@ export default {
     progress(),
     copy({
       targets: [
-        { src: 'src/portals.ts', dest: 'dist/' },
+        { src: 'src/*.sh', dest: 'dist/' },
       ]
     }),
     resolve(),

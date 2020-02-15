@@ -11,8 +11,8 @@ export enum NamedKey {
   left = 'left',
   home = 'home',
   end = 'end',
-  pageup = 'pageup',
-  pagedown = 'pagedown',
+  pageUp = 'pageup',
+  pageDown = 'pagedown',
 
   f1 = 'f1',
   f2 = 'f2',
@@ -126,8 +126,25 @@ export enum NamedKey {
   y = 'y',
   z = 'z',
 
+  tilde = '`',
+
+  dash = '-',
+  equal = '=',
+
+  comma = ',',
+  dot = '.',
+  slash = '/',
+
+  semicolon = ';',
+  quotes = '\'',
+
+  openBracket = '[',
+  closeBracket = ']',
+  backslash = '\\',
+
   NULL = 'NULL',
 }
+
 
 export const modifiers = new Set<NamedKey>([
   NamedKey.command,

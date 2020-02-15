@@ -1,8 +1,8 @@
 <h1 align="center">🎹 MIDK </h1>
 
-Mapping MIDI keypress to PC keyboard, so you can work or coding with your MIDI kerboard 🎉
+Mapping MIDI keypress to PC keyboard, that you can work or code with your MIDI kerboard 🎉
 
-(This project is code in midk)
+(e.g. this project is code in midk)
 
 
 ## Install & Usage
@@ -20,6 +20,6 @@ midk
 
 ## Author
 
-**zsh-history-enquirer** © [zthxxx](https://github.com/zthxxx), Released under the **[MIT](./LICENSE)** License.<br>
+**midk** © [zthxxx](https://github.com/zthxxx), Released under the **[MIT](./LICENSE)** License.<br>
 
 > Blog [@zthxxx](https://blog.zthxxx.me) · GitHub [@zthxxx](https://github.com/zthxxx)

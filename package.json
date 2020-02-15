@@ -1,13 +1,13 @@
 {
   "name": "midk",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Mapping MIDI keypress to PC keyboard",
   "main": "index.js",
   "bin": {
     "midk": "bin/index.js"
   },
   "scripts": {
-    "start": "bin/index.js",
+    "start": "npm run clean && nodemon -w src -e js,ts -x bin/index.js",
     "build": "npm run clean && npm run build:rollup",
     "build:rollup": "rollup -c",
     "build:dev": "npm run clean && rollup -c -w",
@@ -41,6 +41,7 @@
     "index.js"
   ],
   "dependencies": {
+    "midi": "^1.0.0",
     "robotjs": "git+https://github.com/octalmage/robotjs.git"
   },
   "devDependencies": {
@@ -58,7 +59,7 @@
     "enquirer": "^2.3.2",
     "execa": "^3.1.0",
     "husky": "^3.0.5",
-    "midi": "^1.0.0",
+    "nodemon": "^2.0.2",
     "rimraf": "^3.0.0",
     "rollup": "^1.32.0",
     "rollup-plugin-copy": "^3.1.0",
