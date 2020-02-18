@@ -5,6 +5,15 @@ export type PortalMap = Record<Note, Key>
 export type FnPortalMaps = Partial<Record<Note, Partial<PortalMap>>>
 
 export const DefaultPortal: PortalMap = {
+  [Note.C2]: Key.NULL,
+  [Note.C2Sharp]: Key.NULL,
+  [Note.D2]: Key.NULL,
+  [Note.D2Sharp]: Key.NULL,
+  [Note.E2]: Key.NULL,
+  [Note.F2]: Key.NULL,
+  [Note.F2Sharp]: Key.NULL,
+  [Note.G2]: Key.NULL,
+  [Note.G2Sharp]: Key.NULL,
   [Note.A2]: Key.NULL,
   [Note.A2Sharp]: Key.NULL,
   [Note.B2]: Key.NULL,
@@ -101,4 +110,17 @@ export const DefaultPortal: PortalMap = {
   [Note.b4]: Key.NULL,
 
   [Note.c5]: Key.NULL,
+  [Note.c5Sharp]: Key.NULL,
+  [Note.d5]: Key.NULL,
+  [Note.d5Sharp]: Key.NULL,
+  [Note.e5]: Key.NULL,
+  [Note.f5]: Key.NULL,
+  [Note.f5Sharp]: Key.NULL,
+  [Note.g5]: Key.NULL,
+  [Note.g5Sharp]: Key.NULL,
+  [Note.a5]: Key.NULL,
+  [Note.a5Sharp]: Key.NULL,
+  [Note.b5]: Key.NULL,
+
+  [Note.c6]: Key.NULL,
 }

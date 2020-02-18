@@ -8,7 +8,20 @@ import { PortalMap } from './keyMapping'
 import { portal, fnPortal } from './portal'
 import { noteToSendKey } from './sendKey'
 
+export const isSetEqual = (set1: Set<NoteCode>, set2: Set<NoteCode>) => (
+  set1.size === set2.size && set1.size === new Set([...set1, ...set2]).size
+)
+
 export const pressedNotes = new Set<NoteCode>()
+export const playMode = {
+  enable: false,
+}
+
+export const playModeToggleKeys = new Set([
+  NoteCode.CSharp,
+  NoteCode.DSharp,
+  NoteCode.a2Sharp,
+])
 
 export const noteHander: KeypressHandler = ({
   status: noteEvent,
@@ -34,8 +47,19 @@ export const noteHander: KeypressHandler = ({
 
   if (pressed) {
     pressedNotes.add(noteCode)
+
+    if (isSetEqual(pressedNotes, playModeToggleKeys)) {
+      playMode.enable = !playMode.enable
+
+      signale.warn('[MIDI] playMode', playMode)
+    }
   } else {
     pressedNotes.delete(noteCode)
+  }
+
+  // playMode, skip keyboard control
+  if (playMode.enable) {
+    return
   }
 
   const fnPressed = Array.from(pressedNotes)

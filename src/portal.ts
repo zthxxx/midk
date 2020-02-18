@@ -104,4 +104,8 @@ export const fnPortal: FnPortalMaps = {
 
     [Note.c4]: Key.pageDown,
   },
+
+  [Note.CSharp]: {
+    [Note.a2Sharp]: Key.NULL,
+  },
 }

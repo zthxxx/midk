@@ -20,7 +20,16 @@ export type Message = [
 // 88 keys: [A2 ... c5]
 // 61 keys: [C ... c4]
 export enum NoteCode {
-  A2 = 21,
+  C2 = 12,
+  C2Sharp,
+  D2,
+  D2Sharp,
+  E2,
+  F2,
+  F2Sharp,
+  G2,
+  G2Sharp,
+  A2,
   A2Sharp,
   B2,
 
@@ -116,6 +125,19 @@ export enum NoteCode {
   b4,
 
   c5,
+  c5Sharp,
+  d5,
+  d5Sharp,
+  e5,
+  f5,
+  f5Sharp,
+  g5,
+  g5Sharp,
+  a5,
+  a5Sharp,
+  b5,
+
+  c6,
 }
 
 export type NoteVelocity = number
