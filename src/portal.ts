@@ -1,9 +1,9 @@
 import { NoteCode as Note } from './midi'
 import { NamedKey as Key } from './keyboard'
-import { PortalMap, FnPortalMaps, DefaultPortal } from './keyMapping'
+import { PortalMap, FnPortalMaps, TemplatePortal } from './keyMapping'
 
 export const portal: PortalMap = {
-  ...DefaultPortal,
+  ...TemplatePortal,
 
   [Note.C]: Key.NULL,
   [Note.CSharp]: Key.escape,
@@ -32,42 +32,42 @@ export const portal: PortalMap = {
   [Note.b]: Key.v,
 
   [Note.c1]: Key.space,
-  [Note.c1Sharp]: Key.t,
+  [Note.cSharp1]: Key.t,
   [Note.d1]: Key.b,
-  [Note.d1Sharp]: Key.g,
+  [Note.dSharp1]: Key.g,
   [Note.e1]: Key.h,
   [Note.f1]: Key.n,
-  [Note.f1Sharp]: Key.y,
+  [Note.fSharp1]: Key.y,
   [Note.g1]: Key.j,
-  [Note.g1Sharp]: Key.u,
+  [Note.gSharp1]: Key.u,
   [Note.a1]: Key.m,
-  [Note.a1Sharp]: Key.i,
+  [Note.aSharp1]: Key.i,
   [Note.b1]: Key.k,
 
   [Note.c2]: Key.l,
-  [Note.c2Sharp]: Key.o,
+  [Note.cSharp2]: Key.o,
   [Note.d2]: Key.comma,
-  [Note.d2Sharp]: Key.p,
+  [Note.dSharp2]: Key.p,
   [Note.e2]: Key.dot,
   [Note.f2]: Key.slash,
-  [Note.f2Sharp]: Key.openBracket,
+  [Note.fSharp2]: Key.openBracket,
   [Note.g2]: Key.semicolon,
-  [Note.g2Sharp]: Key.closeBracket,
+  [Note.gSharp2]: Key.closeBracket,
   [Note.a2]: Key.quotes,
-  [Note.a2Sharp]: Key.enter,
+  [Note.aSharp2]: Key.enter,
   [Note.b2]: Key.backslash,
 
   [Note.c3]: Key.left,
-  [Note.c3Sharp]: Key.up,
+  [Note.cSharp3]: Key.up,
   [Note.d3]: Key.down,
-  [Note.d3Sharp]: Key.up,
+  [Note.dSharp3]: Key.up,
   [Note.e3]: Key.right,
   [Note.f3]: Key.delete,
-  [Note.f3Sharp]: Key.backspace,
+  [Note.fSharp3]: Key.backspace,
   [Note.g3]: Key.audioVolDown,
-  [Note.g3Sharp]: Key.audioVolUp,
+  [Note.gSharp3]: Key.audioVolUp,
   [Note.a3]: Key.lightsMonDown,
-  [Note.a3Sharp]: Key.lightsMonUp,
+  [Note.aSharp3]: Key.lightsMonUp,
   [Note.b3]: Key.dash,
 
   [Note.c4]: Key.equal,
@@ -90,22 +90,33 @@ export const fnPortal: FnPortalMaps = {
     [Note.c1]: Key.f12,
 
     [Note.c3]: Key.tilde,
-    [Note.c3Sharp]: Key.num1,
+    [Note.cSharp3]: Key.num1,
     [Note.d3]: Key.num2,
-    [Note.d3Sharp]: Key.num3,
+    [Note.dSharp3]: Key.num3,
     [Note.e3]: Key.num4,
     [Note.f3]: Key.num5,
-    [Note.f3Sharp]: Key.num6,
+    [Note.fSharp3]: Key.num6,
     [Note.g3]: Key.num7,
-    [Note.g3Sharp]: Key.num8,
+    [Note.gSharp3]: Key.num8,
     [Note.a3]: Key.num9,
-    [Note.a3Sharp]: Key.num0,
+    [Note.aSharp3]: Key.num0,
     [Note.b3]: Key.pageUp,
 
     [Note.c4]: Key.pageDown,
   },
 
   [Note.CSharp]: {
-    [Note.a2Sharp]: Key.NULL,
+    [Note.aSharp2]: Key.NULL,
   },
 }
+
+export const mergePortalFn = (
+  portal: PortalMap,
+  fnPortals: Partial<PortalMap>[]
+): PortalMap => ({
+  ...portal,
+  ...fnPortals.reduce(
+    (prev, next) => Object.assign(prev, next),
+    {},
+  )
+})

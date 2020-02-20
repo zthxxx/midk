@@ -2,7 +2,7 @@
 import robot from 'robotjs'
 import signale from './signale'
 import { NoteCode } from './midi'
-import { PortalMap, DefaultPortal } from './keyMapping'
+import { PortalMap, TemplatePortal } from './keyMapping'
 import { NamedKey, modifiers } from './keyboard'
 
 export enum PressState {
@@ -47,7 +47,7 @@ export const sendKey = (key: NamedKey, pressed: boolean) => {
   )
 }
 
-export const noteToSendKey = ({ noteCode, pressed, portal = DefaultPortal }: {
+export const noteToSendKey = ({ noteCode, pressed, portal = TemplatePortal }: {
   noteCode: NoteCode,
   pressed: boolean,
   portal?: PortalMap,

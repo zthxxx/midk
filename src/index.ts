@@ -4,8 +4,7 @@ import {
   NoteCode,
 } from './midi'
 import { KeypressHandler, regHandler, startListener } from './readMIDI'
-import { PortalMap } from './keyMapping'
-import { portal, fnPortal } from './portal'
+import { portal, fnPortal, mergePortalFn } from './portal'
 import { noteToSendKey } from './sendKey'
 
 export const isSetEqual = (set1: Set<NoteCode>, set2: Set<NoteCode>) => (
@@ -20,7 +19,7 @@ export const playMode = {
 export const playModeToggleKeys = new Set([
   NoteCode.CSharp,
   NoteCode.DSharp,
-  NoteCode.a2Sharp,
+  NoteCode.aSharp2,
 ])
 
 export const noteHander: KeypressHandler = ({
@@ -62,27 +61,16 @@ export const noteHander: KeypressHandler = ({
     return
   }
 
-  const fnPressed = Array.from(pressedNotes)
-  .filter(note => note in fnPortal)
+  const fnPressed = [...pressedNotes].filter(note => note in fnPortal)
 
   if (fnPressed.length > 0) {
-    signale.info('[MIDI] Fn note pressed:', fnPressed.map(note => NoteCode[noteCode]))
+    signale.info('[MIDI] Fn note pressed:', fnPressed.map(note => NoteCode[note]))
   }
-
-  const mergedFnPortal: Partial<PortalMap> = fnPressed
-    .map(note => fnPortal[note])
-    .reduce(
-      (prev, next) => Object.assign(prev, next),
-      {},
-    )
 
   noteToSendKey({
     noteCode,
     pressed,
-    portal: {
-      ...portal,
-      ...mergedFnPortal,
-    },
+    portal: mergePortalFn(portal, fnPressed.map(note => fnPortal[note])),
   })
 }
 
