@@ -1,0 +1,132 @@
+# Helmholtz pitch notation is used for note names
+# all supported note names are written in `midi.ts`
+# https://github.com/zthxxx/midk/blob/master/src/midi.ts
+
+# if enable playMode, stop to control keyboard
+playMode:
+  # default enable when start
+  enable: false
+  # composite keys to toggle enable/disable playMode
+  toggle:
+    - CSharp
+    - DSharp
+    - aSharp2
+
+
+# all supported key names are written in `keyboard.ts`
+# https://github.com/zthxxx/midk/blob/master/src/keyboard.ts
+#
+# interface Portal {
+#   [NoteName]: KeyName
+# }
+portal:
+  C: null
+  CSharp: escape
+  D: home
+  DSharp: null
+  E: end
+  F: tilde
+  FSharp: tab
+  G: control
+  GSharp: capsLock
+  A: alt
+  ASharp: shift
+  B: command
+
+  c: a
+  cSharp: q
+  d: z
+  dSharp: w
+  e: s
+  f: x
+  fSharp: e
+  g: c
+  gSharp: d
+  a: f
+  aSharp: r
+  b: v
+
+  c1: space
+  cSharp1: t
+  d1: b
+  dSharp1: g
+  e1: h
+  f1: n
+  fSharp1: y
+  g1: j
+  gSharp1: u
+  a1: m
+  aSharp1: i
+  b1: k
+
+  c2: l
+  cSharp2: o
+  d2: comma
+  dSharp2: p
+  e2: dot
+  f2: slash
+  fSharp2: openBracket
+  g2: semicolon
+  gSharp2: closeBracket
+  a2: quotes
+  aSharp2: enter
+  b2: backslash
+
+  c3: left
+  cSharp3: up
+  d3: down
+  dSharp3: up
+  e3: right
+  f3: delete
+  fSharp3: backspace
+  g3: audioVolDown
+  gSharp3: audioVolUp
+  a3: lightsMonDown
+  aSharp3: lightsMonUp
+  b3: dash
+
+  c4: equal
+
+
+# when press the Fn-key, alter some keys mapping
+#
+# interface FnPortal {
+#   [NoteName]: Portal
+# }
+fnPortal:
+  C:
+    D: audioPrev
+    DSharp: audioPlay
+    E: audioNext
+
+    cSharp: f1
+    d: f2
+    dSharp: f3
+    e: f4
+    f: f5
+    fSharp: f6
+    g: f7
+    gSharp: f8
+    a: f9
+    aSharp: f10
+    b: f11
+
+    c1: f12
+
+    c3: tilde
+    cSharp3: num1
+    d3: num2
+    dSharp3: num3
+    e3: num4
+    f3: num5
+    fSharp3: num6
+    g3: num7
+    gSharp3: num8
+    a3: num9
+    aSharp3: num0
+    b3: pageUp
+
+    c4: pageDown
+
+  CSharp:
+    aSharp2: null

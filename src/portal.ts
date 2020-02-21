@@ -1,16 +1,43 @@
+import fs from 'fs'
+import yaml from 'js-yaml'
 import { NoteCode as Note } from './midi'
 import { NamedKey as Key } from './keyboard'
 import { PortalMap, FnPortalMaps, TemplatePortal } from './keyMapping'
+import signale from './signale'
+
+
+export type ToggleKeys = Note[]
+export interface PlayMode {
+  enable: boolean,
+  toggle: ToggleKeys,
+}
+
+export interface PortalConfig {
+  playMode: PlayMode,
+
+  portal: PortalMap,
+
+  fnPortal: FnPortalMaps,
+}
+
+export const playMode: PlayMode = {
+  enable: false,
+  toggle: [
+    Note.CSharp,
+    Note.DSharp,
+    Note.aSharp2,
+  ],
+}
 
 export const portal: PortalMap = {
   ...TemplatePortal,
 
   [Note.C]: Key.NULL,
   [Note.CSharp]: Key.escape,
-  [Note.D]: Key.NULL,
+  [Note.D]: Key.home,
   [Note.DSharp]: Key.NULL,
-  [Note.E]: Key.NULL,
-  [Note.F]: Key.NULL,
+  [Note.E]: Key.end,
+  [Note.F]: Key.tilde,
   [Note.FSharp]: Key.tab,
   [Note.G]: Key.control,
   [Note.GSharp]: Key.capsLock,
@@ -75,6 +102,10 @@ export const portal: PortalMap = {
 
 export const fnPortal: FnPortalMaps = {
   [Note.C]: {
+    [Note.D]: Key.audioPrev,
+    [Note.DSharp]: Key.audioPlay,
+    [Note.E]: Key.audioNext,
+
     [Note.cSharp]: Key.f1,
     [Note.d]: Key.f2,
     [Note.dSharp]: Key.f3,
@@ -120,3 +151,51 @@ export const mergePortalFn = (
     {},
   )
 })
+
+export const buildNameToPortal = (portal: Partial<PortalMap>): Partial<PortalMap> => (
+  Object.fromEntries(
+    Object.entries(portal).map(
+      ([noteName, keyName]) => [Note[noteName], Key[keyName]]
+    )
+  )
+)
+
+export const buildNameToFnPortal = (fnPortal: FnPortalMaps): FnPortalMaps => (
+  Object.fromEntries(
+    Object.entries(fnPortal).map(
+      ([noteName, portal]) => [Note[noteName], buildNameToPortal(portal)]
+    )
+  )
+)
+
+export const loadPortalConfig = (configPath: string): PortalConfig => {
+  try {
+    const config: PortalConfig = yaml.safeLoad(
+      fs.readFileSync(configPath, 'utf8')
+    )
+    signale.info('[Portal yaml]', config);
+
+    return {
+      playMode: {
+        ...playMode,
+        ...config.playMode,
+      },
+      portal: {
+        ...portal,
+        ...buildNameToPortal(config.portal),
+      },
+      fnPortal: {
+        ...fnPortal,
+        ...buildNameToFnPortal(config.fnPortal),
+      },
+    }
+  } catch (e) {
+    signale.error('[Portal yaml]', e)
+
+    return {
+      playMode,
+      portal,
+      fnPortal,
+    }
+  }
+}

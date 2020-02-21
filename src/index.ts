@@ -1,26 +1,34 @@
+import os from 'os'
+import path from 'path'
 import signale from './signale'
 import {
   MessageStatus,
   NoteCode,
 } from './midi'
 import { KeypressHandler, regHandler, startListener } from './readMIDI'
-import { portal, fnPortal, mergePortalFn } from './portal'
+import { mergePortalFn, loadPortalConfig } from './portal'
 import { noteToSendKey } from './sendKey'
+import packageJson from '../package.json'
+
+export const portalConfigFile = path.join(
+  os.homedir(),
+  `.${packageJson.name}`,
+  'portal.yml',
+)
+
+export const {
+  playMode,
+  portal,
+  fnPortal,
+} = loadPortalConfig(portalConfigFile)
+
+export const playModeToggleKeys = new Set<NoteCode>(playMode.toggle)
+
+export const pressedNotes = new Set<NoteCode>()
 
 export const isSetEqual = (set1: Set<NoteCode>, set2: Set<NoteCode>) => (
   set1.size === set2.size && set1.size === new Set([...set1, ...set2]).size
 )
-
-export const pressedNotes = new Set<NoteCode>()
-export const playMode = {
-  enable: false,
-}
-
-export const playModeToggleKeys = new Set([
-  NoteCode.CSharp,
-  NoteCode.DSharp,
-  NoteCode.aSharp2,
-])
 
 export const noteHander: KeypressHandler = ({
   status: noteEvent,

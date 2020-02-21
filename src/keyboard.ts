@@ -1,4 +1,5 @@
-// https://github.com/octalmage/robotjs/blob/master/src/robotjs.cc KeyNames
+// https://robotjs.io/docs/syntax#keys
+// https://github.com/octalmage/robotjs/blob/master/src/robotjs.cc key_names[]
 export enum NamedKey {
   backspace = 'backspace',
   delete = 'delete',

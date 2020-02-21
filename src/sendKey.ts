@@ -13,7 +13,7 @@ export enum PressState {
 export const modifieds = new Set<NamedKey>()
 
 export const sendKey = (key: NamedKey, pressed: boolean) => {
-  if (key === NamedKey.NULL) {
+  if (key === null || key === NamedKey.NULL) {
     signale.warn('[KBD] null key, skip')
     return
   }
@@ -53,7 +53,7 @@ export const noteToSendKey = ({ noteCode, pressed, portal = TemplatePortal }: {
   portal?: PortalMap,
 }) => {
   const key = portal[noteCode]
-  if (!key) {
+  if (key === undefined) {
     signale.warn('[KBD] Cant find key map for code:', noteCode)
     return
   }

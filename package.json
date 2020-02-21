@@ -1,17 +1,18 @@
 {
   "name": "midk",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Mapping MIDI keypress to PC keyboard",
   "main": "index.js",
   "bin": {
     "midk": "bin/index.js"
   },
   "scripts": {
-    "start": "npm run clean && nodemon -w src -e js,ts -x bin/index.js",
+    "start": "npm run clean && nodemon -w src -w portal.yml -e js,ts,yml -x bin/index.js",
     "build": "npm run clean && npm run build:rollup",
     "build:rollup": "rollup -c",
     "build:dev": "npm run clean && rollup -c -w",
     "clean": "rimraf dist public coverage",
+    "postinstall": "mkdir -p ~/.midk && ln -fs `pwd`/portal.yml ~/.midk/",
     "prepublishOnly": "npm run build",
     "postpublish": "npm run clean"
   },
@@ -59,6 +60,7 @@
     "enquirer": "^2.3.2",
     "execa": "^3.1.0",
     "husky": "^3.0.5",
+    "js-yaml": "^3.13.1",
     "nodemon": "^2.0.2",
     "rimraf": "^3.0.0",
     "rollup": "^1.32.0",
