@@ -1,15 +1,14 @@
 import fs from 'fs'
 import yaml from 'js-yaml'
-import { NoteCode as Note } from './midi'
+import { NoteCode as Note, NoteNameKey } from './midi'
 import { NamedKey as Key } from './keyboard'
-import { PortalMap, FnPortalMaps, TemplatePortal } from './keyMapping'
+import { PortalMap, FnPortalMaps } from './keyMapping'
 import signale from './signale'
 
 
-export type ToggleKeys = Note[]
 export interface PlayMode {
   enable: boolean,
-  toggle: ToggleKeys,
+  toggle: Note[],
 }
 
 export interface PortalConfig {
@@ -30,8 +29,6 @@ export const playMode: PlayMode = {
 }
 
 export const portal: PortalMap = {
-  ...TemplatePortal,
-
   [Note.C]: Key.NULL,
   [Note.CSharp]: Key.escape,
   [Note.D]: Key.home,
@@ -143,7 +140,7 @@ export const fnPortal: FnPortalMaps = {
 
 export const mergePortalFn = (
   portal: PortalMap,
-  fnPortals: Partial<PortalMap>[]
+  fnPortals: PortalMap[]
 ): PortalMap => ({
   ...portal,
   ...fnPortals.reduce(
@@ -152,7 +149,7 @@ export const mergePortalFn = (
   )
 })
 
-export const buildNameToPortal = (portal: Partial<PortalMap>): Partial<PortalMap> => (
+export const buildNameToPortal = (portal: PortalMap): PortalMap => (
   Object.fromEntries(
     Object.entries(portal).map(
       ([noteName, keyName]) => [Note[noteName], Key[keyName]]
@@ -168,12 +165,30 @@ export const buildNameToFnPortal = (fnPortal: FnPortalMaps): FnPortalMaps => (
   )
 )
 
+export const transformConfigNoteNameToCode = (config: PortalConfig): PortalConfig => {
+  const portal = buildNameToPortal(config.portal)
+  const fnPortal = buildNameToFnPortal(config.fnPortal)
+
+  const toggle = config.playMode.toggle as any as NoteNameKey[]
+
+  return {
+    playMode: {
+      ...config.playMode,
+      toggle: toggle.map(note => Note[note]),
+    },
+    portal,
+    fnPortal,
+  }
+}
+
 export const loadPortalConfig = (configPath: string): PortalConfig => {
   try {
-    const config: PortalConfig = yaml.safeLoad(
+    const rawConfig: PortalConfig = yaml.safeLoad(
       fs.readFileSync(configPath, 'utf8')
     )
-    signale.info('[Portal yaml]', config);
+    signale.info('[Portal yaml]', rawConfig);
+
+    const config = transformConfigNoteNameToCode(rawConfig)
 
     return {
       playMode: {
@@ -182,11 +197,11 @@ export const loadPortalConfig = (configPath: string): PortalConfig => {
       },
       portal: {
         ...portal,
-        ...buildNameToPortal(config.portal),
+        ...config.portal,
       },
       fnPortal: {
         ...fnPortal,
-        ...buildNameToFnPortal(config.fnPortal),
+        ...config.fnPortal,
       },
     }
   } catch (e) {

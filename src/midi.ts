@@ -142,6 +142,8 @@ export enum NoteCode {
   c6,
 }
 
+export type NoteNameKey = (keyof typeof NoteCode)
+
 export type NoteVelocity = number
 
 export type NoteEvent = Extract<

@@ -54,7 +54,10 @@ export const noteToSendKey = ({ noteCode, pressed, portal = TemplatePortal }: {
 }) => {
   const key = portal[noteCode]
   if (key === undefined) {
-    signale.warn('[KBD] Cant find key map for code:', noteCode)
+    signale.info('[KBD] Cant find key portal map for note:', {
+      note: NoteCode[noteCode],
+      noteCode,
+    })
     return
   }
 

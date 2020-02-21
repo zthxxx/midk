@@ -1,8 +1,8 @@
 import { NoteCode as Note } from './midi'
 import { NamedKey as Key } from './keyboard'
 
-export type PortalMap = Record<Note, Key>
-export type FnPortalMaps = Partial<Record<Note, Partial<PortalMap>>>
+export type PortalMap = Partial<Record<Note, Key>>
+export type FnPortalMaps = Partial<Record<Note, PortalMap>>
 
 export const TemplatePortal: PortalMap = {
   [Note.C2]: Key.NULL,
