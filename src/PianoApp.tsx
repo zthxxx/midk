@@ -3,37 +3,28 @@
 
 import React from 'react'
 import styled from '@emotion/styled'
-import Dimensions from 'react-dimensions'
 import { MidiNumbers } from 'react-piano'
 import { PortalMap, FnPortalMaps } from './keyMapping'
-import { NoteKey } from './PianoSheet'
+import { NoteKey, countNotesWithoutChromatic } from './PianoSheet'
 import { Piano } from './PianoSheet/styled'
 import 'react-piano/dist/styles.css'
 
 import portalConfig from './portal.yml'
 
 
+export const noteKeyWidth = 70
+export const notekeyWidthHeightRatio = 1 / 4.8
+
 const { portal, fnPortal } = portalConfig as {
   portal: PortalMap,
   fnPortal: FnPortalMaps,
 }
 
-export const DimensionsProvider = Dimensions()((props) => {
-  const { containerWidth, containerHeight, children } = props
-  return (
-    <div>
-      {children({
-        width: containerWidth,
-        height: containerHeight,
-      })}
-    </div>
-  )
-})
-
 export const noteRange = {
   first: MidiNumbers.fromNote('C2'),
   last: MidiNumbers.fromNote('C7'),
 }
+
 
 export const Background = styled.div`
   position: absolute;
@@ -59,27 +50,23 @@ export const BodyContainer = styled.div`
 export const App = () => (
   <Background>
     <BodyContainer>
-      <DimensionsProvider
-        children={({ width }) => (
-          <Piano
-            noteRange={noteRange}
-            width={width * 1.5}
-            playNote={(...playProps) => console.log('[piano ] playProps', playProps)}
-            stopNote={(...playProps) => console.log('[piano ] stopNote', playProps)}
-            disabled={false}
-            keyWidthToHeight={1 / 5}
-            renderNoteLabel={({ keyboardShortcut, midiNumber, isActive, isAccidental }) => {
-              return (
-                <NoteKey
-                  noteCode={midiNumber}
-                  isAccidental={isAccidental}
-                  portal={portal}
-                  fnPortal={fnPortal}
-                />
-              )
-            }}
-          />
-        )}
+      <Piano
+        noteRange={noteRange}
+        width={countNotesWithoutChromatic(noteRange.first, noteRange.last) * noteKeyWidth}
+        playNote={(...playProps) => console.log('[Piano] playProps', playProps)}
+        stopNote={(...playProps) => console.log('[Piano] stopNote', playProps)}
+        disabled={false}
+        keyWidthToHeight={notekeyWidthHeightRatio}
+        renderNoteLabel={({ midiNumber, isAccidental }) => {
+          return (
+            <NoteKey
+              noteCode={midiNumber}
+              isAccidental={isAccidental}
+              portal={portal}
+              fnPortal={fnPortal}
+            />
+          )
+        }}
       />
     </BodyContainer>
   </Background>

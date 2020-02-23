@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import { NoteCode } from '../midi'
-import { KeyDisplay } from '../keyboard'
 import { PortalMap, FnPortalMaps } from '../keyMapping'
+import { KeyDisplay } from './keySheet'
 import * as S from './styled'
 import 'react-piano/dist/styles.css'
 
@@ -21,6 +21,16 @@ export const caleNoteName = (noteCode: NoteCode): [string, number] => {
   return [notes[offset], group]
 }
 
+export const countNotesWithoutChromatic = (start: NoteCode, end: NoteCode): number => {
+  let count = 0
+  for (let code = start; code <= end; code++) {
+    if (!NoteCode[code].includes('Sharp')) {
+      count += 1
+    }
+  }
+  return count
+}
+
 export const NoteLabel = (props: {
   noteCode: NoteCode,
 }) => {
@@ -37,14 +47,13 @@ export const NoteLabel = (props: {
 }
 
 export const SharpNote = styled.div`
-  // transparent for color emoji
-  color: transparent;
+  padding-bottom: 8px;
+  color: var(--sharp-note-text-color);
   text-shadow: 0 0 0 var(--sharp-note-text-color);
 `
 
 export const BaseNote = styled.div`
-  // transparent for color emoji
-  color: transparent;
+  color: var(--base-note-text-color);
   text-shadow: 0 0 0 var(--base-note-text-color);
 `
 

@@ -128,9 +128,9 @@ export const fnPortal: FnPortalMaps = {
     [Note.gSharp3]: Key.num8,
     [Note.a3]: Key.num9,
     [Note.aSharp3]: Key.num0,
-    [Note.b3]: Key.pageUp,
+    [Note.b3]: Key.pageDown,
 
-    [Note.c4]: Key.pageDown,
+    [Note.c4]: Key.pageUp,
   },
 
   [Note.CSharp]: {

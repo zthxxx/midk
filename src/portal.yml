@@ -124,9 +124,9 @@ fnPortal:
     gSharp3: num8
     a3: num9
     aSharp3: num0
-    b3: pageUp
+    b3: pageDown
 
-    c4: pageDown
+    c4: pageUp
 
   CSharp:
     aSharp2: null

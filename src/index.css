@@ -1,13 +1,17 @@
 :root {
   --global-background: #444;
 
+  /* --piano-header-background: #ed5276; */
+  --piano-header-background: #eb5a7b;
+
   --base-note-color: #fafafa;
   --sharp-note-color: #444;
 
+  --base-note-name-color: #777;
   --base-note-text-color: #333;
   --sharp-note-text-color: #fafafa;
 
-  --active-note-color: #ed5276;
+  --active-note-color: #fb7999;
 
   --kbd-color: #444d56;
   --kbd-background: ##fafbfc;
