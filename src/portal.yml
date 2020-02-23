@@ -20,7 +20,7 @@ playMode:
 #   [NoteName]: KeyName
 # }
 portal:
-  C: null
+  C: fn
   CSharp: escape
   D: home
   DSharp: null

@@ -1,0 +1,19 @@
+:root {
+  --global-background: #444;
+
+  --base-note-color: #fafafa;
+  --sharp-note-color: #444;
+
+  --base-note-text-color: #333;
+  --sharp-note-text-color: #fafafa;
+
+  --active-note-color: #ed5276;
+
+  --kbd-color: #444d56;
+  --kbd-background: ##fafbfc;
+  --kbd-border-color: #d1d5da;
+}
+
+body {
+  background: var(--global-background);
+}

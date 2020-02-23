@@ -7,6 +7,9 @@ try {
   if (!require.extensions['.ts']) {
     require('ts-node').register({
       project: require('path').join(__dirname, 'tsconfig.json'),
+      compilerOptions: {
+        module: 'commonjs',
+      },
     })
   }
   const index = require('./src').default
