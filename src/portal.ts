@@ -1,9 +1,37 @@
-import fs from 'fs'
-import yaml from 'js-yaml'
 import { NoteCode as Note, NoteNameKey } from './midi'
 import { NamedKey as Key } from './keyboard'
-import { PortalMap, FnPortalMaps } from './keyMapping'
-import signale from './signale'
+
+export type PortalMap = Partial<Record<Note, Key>>
+export type FnPortalMaps = Partial<Record<Note, PortalMap>>
+
+// template for copy and rewrite
+export const TemplatePortal: PortalMap = {
+  [Note.C1]: Key.NULL,
+  [Note.CSharp1]: Key.NULL,
+  [Note.D1]: Key.NULL,
+  [Note.DSharp1]: Key.NULL,
+  [Note.E1]: Key.NULL,
+  [Note.F1]: Key.NULL,
+  [Note.FSharp1]: Key.NULL,
+  [Note.G1]: Key.NULL,
+  [Note.GSharp1]: Key.NULL,
+  [Note.A1]: Key.NULL,
+  [Note.ASharp1]: Key.NULL,
+  [Note.B1]: Key.NULL,
+
+  [Note.c1]: Key.NULL,
+  [Note.cSharp1]: Key.NULL,
+  [Note.d1]: Key.NULL,
+  [Note.dSharp1]: Key.NULL,
+  [Note.e1]: Key.NULL,
+  [Note.f1]: Key.NULL,
+  [Note.fSharp1]: Key.NULL,
+  [Note.g1]: Key.NULL,
+  [Note.gSharp1]: Key.NULL,
+  [Note.a1]: Key.NULL,
+  [Note.aSharp1]: Key.NULL,
+  [Note.b1]: Key.NULL,
+}
 
 
 export interface PlayMode {
@@ -13,9 +41,7 @@ export interface PlayMode {
 
 export interface PortalConfig {
   playMode: PlayMode,
-
   portal: PortalMap,
-
   fnPortal: FnPortalMaps,
 }
 
@@ -178,39 +204,5 @@ export const transformConfigNoteNameToCode = (config: PortalConfig): PortalConfi
     },
     portal,
     fnPortal,
-  }
-}
-
-export const loadPortalConfig = (configPath: string): PortalConfig => {
-  try {
-    const rawConfig: PortalConfig = yaml.safeLoad(
-      fs.readFileSync(configPath, 'utf8')
-    )
-    signale.info('[Portal yaml]', rawConfig);
-
-    const config = transformConfigNoteNameToCode(rawConfig)
-
-    return {
-      playMode: {
-        ...playMode,
-        ...config.playMode,
-      },
-      portal: {
-        ...portal,
-        ...config.portal,
-      },
-      fnPortal: {
-        ...fnPortal,
-        ...config.fnPortal,
-      },
-    }
-  } catch (e) {
-    signale.error('[Portal yaml]', e)
-
-    return {
-      playMode,
-      portal,
-      fnPortal,
-    }
   }
 }

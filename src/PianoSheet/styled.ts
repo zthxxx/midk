@@ -1,6 +1,26 @@
 import styled from '@emotion/styled'
 import { Piano as ReactPiano } from 'react-piano'
 
+
+export const Background = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
+
+export const BodyContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  justify-content: center;
+`
+
 export const NoteName = styled.div`
   padding: 0 0 2px 4px;
   text-align: left;
@@ -51,6 +71,8 @@ export const FnKbd = styled(Kbd)`
 `
 
 export const Piano = styled(ReactPiano)`
+  margin: 0 10px;
+
   .ReactPiano__Key--natural {
     background: var(--base-note-color);
     border: none;
