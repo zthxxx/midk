@@ -14,13 +14,9 @@ export const input = new midi.Input()
 const portCount = input.getPortCount()
 if (portCount < 1) {
   // signale.error('Failed to find MIDI device', { portCount })
-  console.error('Failed to find MIDI device', { portCount })
+  signale.error('Failed to find MIDI device', { portCount })
   process.exit(1)
 }
-
-// Get the name of a specified input port.
-// 0: first device
-input.getPortName(0)
 
 export default input
 
@@ -48,6 +44,10 @@ export const regHandler= (status: MessageStatus, handler: KeypressHandler) => {
 }
 
 export const startListener = () => {
+  // Get the name of a specified input port.
+  // 0: first device
+  input.getPortName(0)
+
   input.on('message', (timestamp: Timestamp, message: Message) => {
     const [status, channel, value] = message
     signale.info('[MIDI]', {

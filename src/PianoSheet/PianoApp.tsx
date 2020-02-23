@@ -2,14 +2,15 @@
 // https://github.com/lillydinhle/react-piano-component
 
 import React from 'react'
-import styled from '@emotion/styled'
 import { MidiNumbers } from 'react-piano'
-import { PortalMap, FnPortalMaps } from './keyMapping'
+import GithubCorner from 'react-github-corners'
+import { PortalMap, FnPortalMaps } from '../portal'
 import { NoteKey, countNotesWithoutChromatic } from './PianoSheet'
-import { Piano } from './PianoSheet/styled'
-import 'react-piano/dist/styles.css'
+import * as S from './styled'
 
-import portalConfig from './portal.yml'
+import portalConfig from '../portal.yml'
+import 'react-piano/dist/styles.css'
+import 'react-github-corners/dist/GithubCorner.css'
 
 
 export const noteKeyWidth = 70
@@ -26,31 +27,18 @@ export const noteRange = {
 }
 
 
-export const Background = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`
-
-export const BodyContainer = styled.div`
-  width: 100%;
-  overflow: visible;
-  display: flex;
-  flex-direction: column;
-  margin: auto;
-  justify-content: center;
-`
-
 export const App = () => (
-  <Background>
-    <BodyContainer>
-      <Piano
+  <S.Background>
+    <GithubCorner
+      url={process.env.REACT_APP_PROJECT_REPO}
+      backgroundColor={'white'}
+      color={'var(--global-background)'}
+      svgStyle={{
+        position: 'fixed',
+      }}
+    />
+    <S.BodyContainer>
+      <S.Piano
         noteRange={noteRange}
         width={countNotesWithoutChromatic(noteRange.first, noteRange.last) * noteKeyWidth}
         playNote={(...playProps) => console.log('[Piano] playProps', playProps)}
@@ -68,8 +56,8 @@ export const App = () => (
           )
         }}
       />
-    </BodyContainer>
-  </Background>
+    </S.BodyContainer>
+  </S.Background>
 )
 
 

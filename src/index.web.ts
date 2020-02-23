@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { App } from './PianoApp'
+import { App } from './PianoSheet'
 import './index.css'
 
 

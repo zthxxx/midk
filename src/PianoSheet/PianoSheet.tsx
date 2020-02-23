@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import { NoteCode } from '../midi'
-import { PortalMap, FnPortalMaps } from '../keyMapping'
+import { PortalMap, FnPortalMaps } from '../portal'
 import { KeyDisplay } from './keySheet'
 import * as S from './styled'
 import 'react-piano/dist/styles.css'

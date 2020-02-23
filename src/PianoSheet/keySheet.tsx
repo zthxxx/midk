@@ -1,6 +1,5 @@
 /* eslint-disable jsx-a11y/accessible-emoji*/
 import React from 'react'
-import styled from '@emotion/styled'
 import {
   ArrowUpOutlined,
   ArrowDownOutlined,
@@ -11,11 +10,8 @@ import {
   BackwardOutlined,
 } from '@ant-design/icons'
 import { NamedKey } from '../keyboard'
+import * as S from './styled'
 
-export const EmojiIcon = styled.span`
-  color: transparent;
-  letter-spacing: -5px;
-`
 
 export const KeyDisplay: Record<keyof typeof NamedKey, React.ReactNode> = {
   backspace: '⌫',
@@ -71,9 +67,9 @@ export const KeyDisplay: Record<keyof typeof NamedKey, React.ReactNode> = {
   insert: 'Insert',
   menu: 'Menu',
 
-  audioMute: <EmojiIcon role="img">🔊</EmojiIcon>,
-  audioVolDown: <><EmojiIcon role="img">🔊</EmojiIcon>-</>,
-  audioVolUp: <><EmojiIcon role="img">🔊</EmojiIcon>+</>,
+  audioMute: <S.EmojiIcon role="img">🔊</S.EmojiIcon>,
+  audioVolDown: <><S.EmojiIcon role="img">🔊</S.EmojiIcon>-</>,
+  audioVolUp: <><S.EmojiIcon role="img">🔊</S.EmojiIcon>+</>,
   audioPlay: <StepForwardOutlined />,
   audioStop: <StepForwardOutlined />,
   audioPause: <StepForwardOutlined />,
@@ -111,11 +107,11 @@ export const KeyDisplay: Record<keyof typeof NamedKey, React.ReactNode> = {
   numpadMulti: '*',
   numpadDiv: '/',
   numpadDot: '.',
-  lightsMonUp: <EmojiIcon role="img">🔆</EmojiIcon>,
-  lightsMonDown: <EmojiIcon role="img">🔅</EmojiIcon>,
+  lightsMonUp: <S.EmojiIcon role="img">🔆</S.EmojiIcon>,
+  lightsMonDown: <S.EmojiIcon role="img">🔅</S.EmojiIcon>,
   lightsKbdToggle: 'Toggle',
-  lightsKbdUp: <EmojiIcon role="img">⌨️🔆</EmojiIcon>,
-  lightsKbdDown: <EmojiIcon role="img">⌨️🔅</EmojiIcon>,
+  lightsKbdUp: <S.EmojiIcon role="img">⌨️🔆</S.EmojiIcon>,
+  lightsKbdDown: <S.EmojiIcon role="img">⌨️🔅</S.EmojiIcon>,
 
   a: 'A',
   b: 'B',

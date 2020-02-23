@@ -1,7 +1,6 @@
 :root {
   --global-background: #444;
 
-  /* --piano-header-background: #ed5276; */
   --piano-header-background: #eb5a7b;
 
   --base-note-color: #fafafa;
@@ -20,4 +19,39 @@
 
 body {
   background: var(--global-background);
+}
+
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  background-color: #000;
+  -webkit-border-radius: 100px;
+}
+::-webkit-scrollbar:hover {
+  cursor: pointer;
+}
+::-webkit-scrollbar:active {
+  cursor: pointer;
+}
+
+::-webkit-scrollbar:hover {
+  background-color: rgba(0, 0, 0, 0.09);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.5);
+  -webkit-border-radius: 100px;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: rgba(255, 255, 255, 0.8);
+  -webkit-border-radius: 100px;
+}
+
+::-webkit-scrollbar-thumb:vertical {
+  min-height: 6px;
+}
+::-webkit-scrollbar-thumb:horizontal {
+  min-width: 6px;
 }

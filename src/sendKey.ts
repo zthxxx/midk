@@ -2,7 +2,7 @@
 import robot from 'robotjs'
 import signale from './signale'
 import { NoteCode } from './midi'
-import { PortalMap, TemplatePortal } from './keyMapping'
+import { PortalMap, TemplatePortal } from './portal'
 import { NamedKey, modifiers } from './keyboard'
 
 export enum PressState {
