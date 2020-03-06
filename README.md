@@ -13,7 +13,7 @@ Mapping MIDI keypress to PC keyboard, that you can work or code with your MIDI k
 
 (e.g. this project is code in midk)
 
-![midk-portal](./images/midk-portal-2580x600.png)
+[![midk-portal](./images/midk-portal-2580x600.png)](https://midk.zthxxx.me)
 
 
 ## Install & Usage
@@ -32,7 +32,7 @@ launch midk portal and watching files change
 npm start
 ```
 
-visual the keys-mapping like the above preview image 
+visual the keys-mapping like the above preview image, preview in https://midk.zthxxx.me
 
 ```bash
 npm run cheatsheet

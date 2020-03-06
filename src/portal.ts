@@ -90,9 +90,9 @@ export const portal: PortalMap = {
   [Note.fSharp1]: Key.y,
   [Note.g1]: Key.j,
   [Note.gSharp1]: Key.u,
-  [Note.a1]: Key.m,
+  [Note.a1]: Key.k,
   [Note.aSharp1]: Key.i,
-  [Note.b1]: Key.k,
+  [Note.b1]: Key.m,
 
   [Note.c2]: Key.l,
   [Note.cSharp2]: Key.o,
@@ -108,7 +108,7 @@ export const portal: PortalMap = {
   [Note.b2]: Key.backslash,
 
   [Note.c3]: Key.left,
-  [Note.cSharp3]: Key.up,
+  [Note.cSharp3]: Key.backspace,
   [Note.d3]: Key.down,
   [Note.dSharp3]: Key.up,
   [Note.e3]: Key.right,

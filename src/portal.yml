@@ -55,9 +55,9 @@ portal:
   fSharp1: y
   g1: j
   gSharp1: u
-  a1: m
+  a1: k
   aSharp1: i
-  b1: k
+  b1: m
 
   c2: l
   cSharp2: o
@@ -73,7 +73,7 @@ portal:
   b2: backslash
 
   c3: left
-  cSharp3: up
+  cSharp3: backspace
   d3: down
   dSharp3: up
   e3: right

@@ -40,8 +40,10 @@ export const NoteLabel = (props: {
 
   return (
     <S.NoteName>
-      {baseName}
-      {group ? <sub>{group}</sub> : null}
+      <span>
+        {baseName}
+        {group ? <sub>{group}</sub> : null}
+      </span>
     </S.NoteName>
   )
 }
