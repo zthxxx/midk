@@ -14,7 +14,7 @@ import 'react-github-corners/dist/GithubCorner.css'
 
 
 export const noteKeyWidth = 70
-export const notekeyWidthHeightRatio = 1 / 4.8
+export const noteKeyWidthHeightRatio = 1 / 4.8
 
 const { portal, fnPortal } = portalConfig as {
   portal: PortalMap,
@@ -44,7 +44,7 @@ export const App = () => (
         playNote={(...playProps) => console.log('[Piano] playProps', playProps)}
         stopNote={(...playProps) => console.log('[Piano] stopNote', playProps)}
         disabled={false}
-        keyWidthToHeight={notekeyWidthHeightRatio}
+        keyWidthToHeight={noteKeyWidthHeightRatio}
         renderNoteLabel={({ midiNumber, isAccidental }) => {
           return (
             <NoteKey

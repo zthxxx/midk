@@ -166,28 +166,28 @@ export const fnPortal: FnPortalMaps = {
 
 export const mergePortalFn = (
   portal: PortalMap,
-  fnPortals: PortalMap[]
+  fnPortals: PortalMap[],
 ): PortalMap => ({
   ...portal,
   ...fnPortals.reduce(
     (prev, next) => Object.assign(prev, next),
     {},
-  )
+  ),
 })
 
 export const buildNameToPortal = (portal: PortalMap): PortalMap => (
   Object.fromEntries(
     Object.entries(portal).map(
-      ([noteName, keyName]) => [Note[noteName], Key[keyName]]
-    )
+      ([noteName, keyName]) => [Note[noteName], Key[keyName]],
+    ),
   )
 )
 
 export const buildNameToFnPortal = (fnPortal: FnPortalMaps): FnPortalMaps => (
   Object.fromEntries(
     Object.entries(fnPortal).map(
-      ([noteName, portal]) => [Note[noteName], buildNameToPortal(portal)]
-    )
+      ([noteName, portal]) => [Note[noteName], buildNameToPortal(portal)],
+    ),
   )
 )
 

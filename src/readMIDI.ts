@@ -32,7 +32,7 @@ export type KeypressHandler = (keypress: KeypressParams) => void | boolean
 
 export const handlersMap = new Map<MessageStatus, KeypressHandler[]>()
 
-export const regHandler= (status: MessageStatus, handler: KeypressHandler) => {
+export const regHandler = (status: MessageStatus, handler: KeypressHandler) => {
   const handlers = handlersMap.get(status) ?? []
   handlersMap.set(
     status,
@@ -62,7 +62,7 @@ export const startListener = () => {
   })
 
   // Open the first available input port.
-  input.openPort(0);
+  input.openPort(0)
 
   signale.info('[MIDI] started listening')
 }

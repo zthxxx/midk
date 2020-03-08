@@ -13,7 +13,7 @@
   --active-note-color: #fb7999;
 
   --kbd-color: #444d56;
-  --kbd-background: ##fafbfc;
+  --kbd-background: transparent;
   --kbd-border-color: #d1d5da;
 }
 
@@ -28,9 +28,11 @@ body {
   background-color: #000;
   -webkit-border-radius: 100px;
 }
+
 ::-webkit-scrollbar:hover {
   cursor: pointer;
 }
+
 ::-webkit-scrollbar:active {
   cursor: pointer;
 }
@@ -52,6 +54,7 @@ body {
 ::-webkit-scrollbar-thumb:vertical {
   min-height: 6px;
 }
+
 ::-webkit-scrollbar-thumb:horizontal {
   min-width: 6px;
 }

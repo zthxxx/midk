@@ -1,8 +1,8 @@
 const {
   override,
   addWebpackModuleRule,
-} = require("customize-cra");
-const path = require("path");
+} = require('customize-cra')
+
 
 // https://github.com/arackaf/customize-cra/blob/master/api.md
 module.exports = override(
@@ -12,5 +12,5 @@ module.exports = override(
       'json-loader',
       'yaml-loader',
     ],
-  })
+  }),
 )

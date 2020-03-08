@@ -27,9 +27,9 @@ export const isSetEqual = (set1: Set<NoteCode>, set2: Set<NoteCode>) => (
 export const loadPortalConfig = (configPath: string): PortalConfig => {
   try {
     const rawConfig: PortalConfig = yaml.safeLoad(
-      fs.readFileSync(configPath, 'utf8')
+      fs.readFileSync(configPath, 'utf8'),
     )
-    signale.info('[Portal yaml]', rawConfig);
+    signale.info('[Portal yaml]', rawConfig)
 
     const config = transformConfigNoteNameToCode(rawConfig)
 

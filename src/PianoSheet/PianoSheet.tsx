@@ -9,7 +9,7 @@ import 'react-piano/dist/styles.css'
 
 export const caleNoteName = (noteCode: NoteCode): [string, number] => {
   const isLower = noteCode >= NoteCode.c
-  const pivot: NoteCode  = isLower ? NoteCode.c : NoteCode.B
+  const pivot: NoteCode = isLower ? NoteCode.c : NoteCode.B
   const group = Math.floor(Math.abs(noteCode - pivot) / 12)
   const offset = Math.abs(noteCode - pivot) % 12
   const baseNotes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
@@ -71,7 +71,7 @@ export const NamedKeyLabel = (props: {
     Object.values(fnPortal)
       .map(portal => Object.entries(portal))
       .reduce((prev, curr) => [...prev, ...curr], [])
-      .filter(([, key]) => key)
+      .filter(([, key]) => key),
   )
 
   const alterKey = KeyDisplay[alterKeyMap.get(note)]
