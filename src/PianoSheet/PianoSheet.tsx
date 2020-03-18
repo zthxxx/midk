@@ -7,20 +7,6 @@ import * as S from './styled'
 import 'react-piano/dist/styles.css'
 
 
-export const caleNoteName = (noteCode: NoteCode): [string, number] => {
-  const isLower = noteCode >= NoteCode.c
-  const pivot: NoteCode = isLower ? NoteCode.c : NoteCode.B
-  const group = Math.floor(Math.abs(noteCode - pivot) / 12)
-  const offset = Math.abs(noteCode - pivot) % 12
-  const baseNotes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
-
-  const notes = isLower
-    ? baseNotes.map(note => note.toLowerCase())
-    : baseNotes.reverse()
-
-  return [notes[offset], group]
-}
-
 export const countNotesWithoutChromatic = (start: NoteCode, end: NoteCode): number => {
   let count = 0
   for (let code = start; code <= end; code++) {
@@ -36,13 +22,12 @@ export const NoteLabel = (props: {
 }) => {
   const { noteCode } = props
 
-  const [baseName, group] = caleNoteName(noteCode)
+  const noteName = NoteCode[noteCode].replace('Sharp', '#')
 
   return (
     <S.NoteName>
       <span>
-        {baseName}
-        {group ? <sub>{group}</sub> : null}
+        {noteName}
       </span>
     </S.NoteName>
   )

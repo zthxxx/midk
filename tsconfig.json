@@ -16,6 +16,7 @@
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
+    "preserveConstEnums": true,
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react"

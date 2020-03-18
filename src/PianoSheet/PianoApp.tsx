@@ -2,15 +2,17 @@
 // https://github.com/lillydinhle/react-piano-component
 
 import React from 'react'
-import { MidiNumbers } from 'react-piano'
 import GithubCorner from 'react-github-corners'
 import { PortalMap, FnPortalMaps } from '../portal'
+import { NoteCode } from '../midi'
 import { NoteKey, countNotesWithoutChromatic } from './PianoSheet'
+import { ScoreProps, Score } from './Score'
 import * as S from './styled'
 
 import portalConfig from '../portal.yml'
 import 'react-piano/dist/styles.css'
 import 'react-github-corners/dist/GithubCorner.css'
+import './index.css'
 
 
 export const noteKeyWidth = 70
@@ -21,11 +23,12 @@ const { portal, fnPortal } = portalConfig as {
   fnPortal: FnPortalMaps,
 }
 
-export const noteRange = {
-  first: MidiNumbers.fromNote('C2'),
-  last: MidiNumbers.fromNote('C7'),
+export const noteRange: ScoreProps['noteRange'] = {
+  first: NoteCode.C2,
+  last: NoteCode.C7,
 }
 
+const notesWholeWidth = countNotesWithoutChromatic(noteRange.first, noteRange.last) * noteKeyWidth
 
 export const App = () => (
   <S.Background>
@@ -40,7 +43,7 @@ export const App = () => (
     <S.BodyContainer>
       <S.Piano
         noteRange={noteRange}
-        width={countNotesWithoutChromatic(noteRange.first, noteRange.last) * noteKeyWidth}
+        width={notesWholeWidth}
         playNote={(...playProps) => console.log('[Piano] playProps', playProps)}
         stopNote={(...playProps) => console.log('[Piano] stopNote', playProps)}
         disabled={false}
@@ -55,6 +58,12 @@ export const App = () => (
             />
           )
         }}
+      />
+
+      <Score
+        width={notesWholeWidth}
+        noteRange={noteRange}
+        noteKeyWidth={noteKeyWidth}
       />
     </S.BodyContainer>
   </S.Background>

@@ -1,6 +1,7 @@
-# Helmholtz pitch notation is used for note names
-# all supported note names are written in `midi.ts`
-# https://github.com/zthxxx/midk/blob/master/src/midi.ts
+# choose a pitch notation which is used for note names in config
+# https://en.wikipedia.org/wiki/Helmholtz_pitch_notation
+# https://en.wikipedia.org/wiki/Scientific_pitch_notation
+pitchNotation: Scientific  # Scientific | Helmholtz
 
 # if enable playMode, stop to control keyboard
 playMode:
@@ -8,10 +9,9 @@ playMode:
   enable: false
   # composite keys to toggle enable/disable playMode
   toggle:
-    - CSharp
-    - DSharp
-    - aSharp2
-
+    - CSharp2
+    - DSharp2
+    - ASharp5
 
 # all supported key names are written in `keyboard.ts`
 # https://github.com/zthxxx/midk/blob/master/src/keyboard.ts
@@ -20,72 +20,72 @@ playMode:
 #   [NoteName]: KeyName
 # }
 portal:
-  C: fn
-  CSharp: escape
-  D: home
-  DSharp: null
-  E: end
-  F: tilde
-  FSharp: tab
-  G: control
-  GSharp: capsLock
-  A: alt
-  ASharp: shift
-  B: command
+  C2: NULL
+  CSharp2: escape
+  D2: home
+  DSharp2: NULL
+  E2: end
+  F2: tilde
+  FSharp2: tab
+  G2: control
+  GSharp2: capsLock
+  A2: alt
+  ASharp2: shift
+  B2: command
 
-  c: a
-  cSharp: q
-  d: z
-  dSharp: w
-  e: s
-  f: x
-  fSharp: e
-  g: c
-  gSharp: d
-  a: f
-  aSharp: r
-  b: v
+  C3: a
+  CSharp3: q
+  D3: z
+  DSharp3: w
+  E3: s
+  F3: x
+  FSharp3: e
+  G3: c
+  GSharp3: d
+  A3: f
+  ASharp3: r
+  B3: v
 
-  c1: space
-  cSharp1: t
-  d1: b
-  dSharp1: g
-  e1: h
-  f1: n
-  fSharp1: y
-  g1: j
-  gSharp1: u
-  a1: k
-  aSharp1: i
-  b1: m
+  C4: space
+  CSharp4: t
+  D4: b
+  DSharp4: g
+  E4: h
+  F4: n
+  FSharp4: y
+  G4: j
+  GSharp4: u
+  A4: k
+  ASharp4: i
+  B4: m
 
-  c2: l
-  cSharp2: o
-  d2: comma
-  dSharp2: p
-  e2: dot
-  f2: slash
-  fSharp2: openBracket
-  g2: semicolon
-  gSharp2: closeBracket
-  a2: quotes
-  aSharp2: enter
-  b2: backslash
+  C5: l
+  CSharp5: o
+  D5: comma
+  DSharp5: p
+  E5: dot
+  F5: slash
+  FSharp5: openBracket
+  G5: semicolon
+  GSharp5: closeBracket
+  A5: quotes
+  ASharp5: enter
+  B5: backslash
 
-  c3: left
-  cSharp3: backspace
-  d3: down
-  dSharp3: up
-  e3: right
-  f3: delete
-  fSharp3: backspace
-  g3: audioVolDown
-  gSharp3: audioVolUp
-  a3: lightsMonDown
-  aSharp3: lightsMonUp
-  b3: dash
+  C6: left
+  CSharp6: backspace
+  D6: down
+  DSharp6: up
+  E6: right
+  F6: delete
+  FSharp6: backspace
+  G6: audioVolDown
+  GSharp6: audioVolUp
+  A6: lightsMonDown
+  ASharp6: lightsMonUp
+  B6: dash
 
-  c4: equal
+  C7: equal
 
 
 # when press the Fn-key, alter some keys mapping
@@ -94,39 +94,39 @@ portal:
 #   [NoteName]: Portal
 # }
 fnPortal:
-  C:
-    D: audioPrev
-    DSharp: audioPlay
-    E: audioNext
+  C2:
+    D2: audioPrev
+    DSharp2: audioPlay
+    E2: audioNext
 
-    cSharp: f1
-    d: f2
-    dSharp: f3
-    e: f4
-    f: f5
-    fSharp: f6
-    g: f7
-    gSharp: f8
-    a: f9
-    aSharp: f10
-    b: f11
+    CSharp3: f1
+    D3: f2
+    DSharp3: f3
+    E3: f4
+    F3: f5
+    FSharp3: f6
+    G3: f7
+    GSharp3: f8
+    A3: f9
+    ASharp3: f10
+    B3: f11
 
-    c1: f12
+    C4: f12
 
-    c3: tilde
-    cSharp3: num1
-    d3: num2
-    dSharp3: num3
-    e3: num4
-    f3: num5
-    fSharp3: num6
-    g3: num7
-    gSharp3: num8
-    a3: num9
-    aSharp3: num0
-    b3: pageDown
+    C6: tilde
+    CSharp6: num1
+    D6: num2
+    DSharp6: num3
+    E6: num4
+    F6: num5
+    FSharp6: num6
+    G6: num7
+    GSharp6: num8
+    A6: num9
+    ASharp6: num0
+    B6: pageDown
 
-    c4: pageUp
+    C7: pageUp
 
-  CSharp:
-    aSharp2: null
+  CSharp2:
+    ASharp5: null

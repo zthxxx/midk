@@ -113,3 +113,8 @@ export const Piano = styled(ReactPiano)`
     border-top: 10px solid var(--piano-header-background);
   }
 `
+
+export const StaveContainer = styled.div`
+  margin: 16px 10px auto;
+  background-color: #fff;
+`

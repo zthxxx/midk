@@ -45,9 +45,10 @@ you can customize keys-mapping in config file `~/.midk/portal.yml` (created afte
 the default config is stored in [`src/portal.ts`](./src/portal.ts)
 
 ```yaml
-# Helmholtz pitch notation is used for note names
-# all supported note names are written in `midi.ts`
-# https://github.com/zthxxx/midk/blob/master/src/midi.ts
+# choose a pitch notation which is used for note names in config
+# https://en.wikipedia.org/wiki/Helmholtz_pitch_notation
+# https://en.wikipedia.org/wiki/Scientific_pitch_notation
+pitchNotation: Scientific  # Scientific | Helmholtz
 
 # if enable playMode, stop to control keyboard
 playMode:
@@ -55,9 +56,9 @@ playMode:
   enable: false
   # composite keys to toggle enable/disable playMode
   toggle:
-    - CSharp
-    - DSharp
-    - aSharp2
+    - CSharp2
+    - DSharp2
+    - ASharp5
 
 # all supported key names are written in `keyboard.ts`
 # https://github.com/zthxxx/midk/blob/master/src/keyboard.ts
@@ -66,20 +67,20 @@ playMode:
 #   [NoteName]: KeyName
 # }
 portal:
-  CSharp: escape
-  FSharp: tab
-  G: control
-  GSharp: capsLock
-  A: alt
-  ASharp: shift
-  B: command
+  CSharp2: escape
+  FSharp2: tab
+  G2: control
+  GSharp2: capsLock
+  A2: alt
+  ASharp2: shift
+  B2: command
 
-  c: a
-  cSharp: q
-  d: z
-  dSharp: w
-  e: s
-  f: x
+  C3: a
+  CSharp3: q
+  D3: z
+  DSharp3: w
+  E3: s
+  F3: x
 
   ...
 
@@ -89,12 +90,12 @@ portal:
 #   [NoteName]: Portal
 # }
 fnPortal:
-  C:
-    cSharp: f1
-    d: f2
-    dSharp: f3
-    e: f4
-    f: f5
+  C2:
+    CSharp3: f1
+    D3: f2
+    DSharp3: f3
+    E3: f4
+    F3: f5
 
     ...
 ```
