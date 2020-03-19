@@ -79,11 +79,11 @@ export const Score = (props: ScoreProps) => {
       container.current,
       Backends.SVG as any as Flow.Renderer.Backends,
     )
-    renderer.resize(width, 150)
     render(renderer)
   }, [])
 
   const render = (renderer: Flow.Renderer) => {
+    renderer.resize(width, 150)
     const context = renderer.getContext()
 
     const bassStave = new Stave(10, 20, bassNotes.length * noteKeyWidth - 10)

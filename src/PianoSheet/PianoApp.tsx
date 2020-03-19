@@ -34,8 +34,8 @@ export const App = () => (
   <S.Background>
     <GithubCorner
       url={process.env.REACT_APP_PROJECT_REPO}
-      backgroundColor={'white'}
-      color={'var(--global-background)'}
+      backgroundColor={`white`}
+      color={`var(--global-background)`}
       svgStyle={{
         position: 'fixed',
       }}

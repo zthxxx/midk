@@ -1,0 +1,11 @@
+extends:
+  - alloy
+  - alloy/react
+  - alloy/typescript
+rules:
+  # https://eslint.org/docs/rules/no-trailing-spaces
+  no-trailing-spaces: error
+  # https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-curly-brace-presence.md
+  react/jsx-curly-brace-presence: off
+  # https://reactjs.org/docs/hooks-rules.html
+  react-hooks/exhaustive-deps: off
