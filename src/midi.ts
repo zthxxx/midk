@@ -1,3 +1,8 @@
+export enum PitchNotation {
+  Scientific = 'Scientific',
+  Helmholtz = 'Helmholtz',
+}
+
 // https://www.midi.org/specifications/item/table-1-summary-of-midi-message
 export enum MessageStatus {
   noteOffEvent = 0b1000 << 4,
@@ -142,7 +147,7 @@ export enum NoteCode {
   C9,
 }
 
-export type NoteNameKey = (keyof typeof NoteCode)
+export type NoteNameKey = keyof typeof NoteCode
 
 export type NoteVelocity = number
 

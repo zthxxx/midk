@@ -1,6 +1,6 @@
 {
   "name": "midk",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Mapping MIDI keypress to PC keyboard",
   "main": "index.js",
   "bin": {
@@ -15,7 +15,7 @@
     "build:cheatsheet": "react-app-rewired build",
     "clean": "rimraf dist build coverage",
     "lint": "TIMING=1 eslint --ext js,jsx,ts,tsx src",
-    "postinstall": "mkdir -p ~/.midk && ln -fs `pwd`/src/portal.yml ~/.midk/",
+    "postinstall": "mkdir -p ~/.midk && ln -fs `pwd`/src/midk.yml ~/.midk/",
     "prepublishOnly": "npm run build",
     "postpublish": "npm run clean"
   },
@@ -43,7 +43,7 @@
     "bin",
     "dist",
     "index.js",
-    "portal.yml"
+    "midk.yml"
   ],
   "dependencies": {
     "midi": "^1.0.0",

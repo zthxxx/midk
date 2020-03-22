@@ -40,7 +40,7 @@ npm run cheatsheet
 
 ## Customization
 
-you can customize keys-mapping in config file `~/.midk/portal.yml` (created after install).
+you can customize keys-mapping in config file `~/.midk/midk.yml` (created after install).
 
 the default config is stored in [`src/portal.ts`](./src/portal.ts)
 

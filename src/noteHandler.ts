@@ -1,5 +1,3 @@
-import fs from 'fs'
-import yaml from 'js-yaml'
 import signale from './signale'
 import {
   MessageStatus,
@@ -7,13 +5,9 @@ import {
 } from './midi'
 import { KeypressHandler } from './readMIDI'
 import {
-  PortalConfig,
   mergePortalFn,
-  playMode,
-  portal,
-  fnPortal,
-  transformConfigNoteNameToCode,
 } from './portal'
+import { MidkConfig } from './configParser'
 import { noteToSendKey } from './sendKey'
 
 
@@ -24,41 +18,7 @@ export const isSetEqual = (set1: Set<NoteCode>, set2: Set<NoteCode>) => (
   set1.size === set2.size && set1.size === new Set([...set1, ...set2]).size
 )
 
-export const loadPortalConfig = (configPath: string): PortalConfig => {
-  try {
-    const rawConfig: PortalConfig = yaml.safeLoad(
-      fs.readFileSync(configPath, 'utf8'),
-    )
-    signale.info('[Portal yaml]', rawConfig)
-
-    const config = transformConfigNoteNameToCode(rawConfig)
-
-    return {
-      playMode: {
-        ...playMode,
-        ...config.playMode,
-      },
-      portal: {
-        ...portal,
-        ...config.portal,
-      },
-      fnPortal: {
-        ...fnPortal,
-        ...config.fnPortal,
-      },
-    }
-  } catch (e) {
-    signale.error('[Portal yaml]', e)
-
-    return {
-      playMode,
-      portal,
-      fnPortal,
-    }
-  }
-}
-
-export const genNoteHandler = (config: PortalConfig): {
+export const genNoteHandler = (config: MidkConfig): {
   playModeToggleKeys: ToggleKeys,
   pressedNotes: PressedNotes,
   noteHandler: KeypressHandler,

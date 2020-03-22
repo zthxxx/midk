@@ -1,13 +1,14 @@
 import React from 'react'
 import styled from '@emotion/styled'
-import { NoteCode } from '../midi'
-import { PortalMap, FnPortalMaps } from '../portal'
+import { NamedKey } from '../keyboard'
+import { NoteCode, NoteNameKey } from '../midi'
+import { FnPortalConfigMap, PortalConfigMap } from '../portal'
 import { KeyDisplay } from './keySheet'
 import * as S from './styled'
 import 'react-piano/dist/styles.css'
 
 
-export const countNotesWithoutChromatic = (start: NoteCode, end: NoteCode): number => {
+export const countWholeTones = (start: NoteCode, end: NoteCode): number => {
   let count = 0
   for (let code = start; code <= end; code++) {
     if (!NoteCode[code].includes('Sharp')) {
@@ -46,20 +47,22 @@ export const BaseNote = styled.div`
 
 export const NamedKeyLabel = (props: {
   noteCode: NoteCode,
-  portal: PortalMap,
-  fnPortal: FnPortalMaps,
+  portal: PortalConfigMap,
+  fnPortal: FnPortalConfigMap,
 }) => {
   const { noteCode, portal, fnPortal } = props
-  const note = NoteCode[noteCode]
-  const key = KeyDisplay[portal[note]]
+  const noteName = NoteCode[noteCode] as NoteNameKey
+  const key = KeyDisplay[portal[noteName]]
+
+  // notes which are used in fnPortal
   const alterKeyMap = new Map(
     Object.values(fnPortal)
       .map(portal => Object.entries(portal))
       .reduce((prev, curr) => [...prev, ...curr], [])
       .filter(([, key]) => key),
-  )
+  ) as Map<NoteNameKey, keyof typeof NamedKey>
 
-  const alterKey = KeyDisplay[alterKeyMap.get(note)]
+  const alterKey = KeyDisplay[alterKeyMap.get(noteName)]
 
   if (alterKey) {
     return (
@@ -77,14 +80,16 @@ export const NamedKeyLabel = (props: {
 
   if (!key) return null
 
-  if (fnPortal[note] && Object.values(fnPortal[note]).filter(Boolean).length > 0) {
+  const isFnNoteToggle = fnPortal[noteName]
+    && Object.values(fnPortal[noteName]).filter(Boolean).length > 0
+
+  if (isFnNoteToggle) {
     return (
       <S.KeyName>
         <S.FnKbd>{key}</S.FnKbd>
       </S.KeyName>
     )
   }
-
 
   return (
     <S.KeyName>
@@ -96,8 +101,8 @@ export const NamedKeyLabel = (props: {
 export const NoteKey = (props: {
   noteCode: NoteCode,
   isAccidental: boolean,
-  portal: PortalMap,
-  fnPortal: FnPortalMaps,
+  portal: PortalConfigMap,
+  fnPortal: FnPortalConfigMap,
 }) => {
   const { noteCode, isAccidental, portal, fnPortal } = props
 

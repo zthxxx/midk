@@ -1,8 +1,18 @@
-import { NoteCode as Note, NoteNameKey } from './midi'
+import {
+  NoteCode as Note,
+  NoteNameKey,
+} from './midi'
 import { NamedKey as Key } from './keyboard'
 
+
 export type PortalMap = Partial<Record<Note, Key>>
-export type FnPortalMaps = Partial<Record<Note, PortalMap>>
+export type FnPortalMap = Partial<Record<Note, PortalMap>>
+
+/**
+ * type ConfigMap is assign to schema of config file like yaml
+ */
+export type PortalConfigMap = Partial<Record<NoteNameKey, keyof typeof Key>>
+export type FnPortalConfigMap = Partial<Record<NoteNameKey, PortalConfigMap>>
 
 // template for copy and rewrite
 export const TemplatePortal: PortalMap = {
@@ -24,12 +34,6 @@ export const TemplatePortal: PortalMap = {
 export interface PlayMode {
   enable: boolean,
   toggle: Note[],
-}
-
-export interface PortalConfig {
-  playMode: PlayMode,
-  portal: PortalMap,
-  fnPortal: FnPortalMaps,
 }
 
 export const playMode: PlayMode = {
@@ -110,7 +114,7 @@ export const portal: PortalMap = {
   [Note.C7]: Key.equal,
 }
 
-export const fnPortal: FnPortalMaps = {
+export const fnPortal: FnPortalMap = {
   [Note.C2]: {
     [Note.D2]: Key.audioPrev,
     [Note.DSharp2]: Key.audioPlay,
@@ -162,34 +166,3 @@ export const mergePortalFn = (
   ),
 })
 
-export const buildNameToPortal = (portal: PortalMap): PortalMap => (
-  Object.fromEntries(
-    Object.entries(portal).map(
-      ([noteName, keyName]) => [Note[noteName], Key[keyName]],
-    ),
-  )
-)
-
-export const buildNameToFnPortal = (fnPortal: FnPortalMaps): FnPortalMaps => (
-  Object.fromEntries(
-    Object.entries(fnPortal).map(
-      ([noteName, portal]) => [Note[noteName], buildNameToPortal(portal)],
-    ),
-  )
-)
-
-export const transformConfigNoteNameToCode = (config: PortalConfig): PortalConfig => {
-  const portal = buildNameToPortal(config.portal)
-  const fnPortal = buildNameToFnPortal(config.fnPortal)
-
-  const toggle = config.playMode.toggle as any as NoteNameKey[]
-
-  return {
-    playMode: {
-      ...config.playMode,
-      toggle: toggle.map(note => Note[note]),
-    },
-    portal,
-    fnPortal,
-  }
-}

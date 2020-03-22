@@ -3,13 +3,13 @@
 
 import React from 'react'
 import GithubCorner from 'react-github-corners'
-import { PortalMap, FnPortalMaps } from '../portal'
+import { RawFileConfig } from '../configParser'
 import { NoteCode } from '../midi'
-import { NoteKey, countNotesWithoutChromatic } from './PianoSheet'
+import { NoteKey, countWholeTones } from './PianoSheet'
 import { ScoreProps, Score } from './Score'
 import * as S from './styled'
 
-import portalConfig from '../portal.yml'
+import midkConfig from '../midk.yml'
 import 'react-piano/dist/styles.css'
 import 'react-github-corners/dist/GithubCorner.css'
 import './index.css'
@@ -18,17 +18,14 @@ import './index.css'
 export const noteKeyWidth = 70
 export const noteKeyWidthHeightRatio = 1 / 4.8
 
-const { portal, fnPortal } = portalConfig as {
-  portal: PortalMap,
-  fnPortal: FnPortalMaps,
-}
+const { portal, fnPortal } = midkConfig as RawFileConfig
 
 export const noteRange: ScoreProps['noteRange'] = {
   first: NoteCode.C2,
   last: NoteCode.C7,
 }
 
-const notesWholeWidth = countNotesWithoutChromatic(noteRange.first, noteRange.last) * noteKeyWidth
+const notesWholeWidth = countWholeTones(noteRange.first, noteRange.last) * noteKeyWidth
 
 export const App = () => (
   <S.Background>
