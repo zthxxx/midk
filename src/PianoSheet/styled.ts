@@ -1,6 +1,12 @@
 import styled from '@emotion/styled'
+import AntSwitch from 'antd/es/switch'
 import { Piano as ReactPiano } from 'react-piano'
 
+
+export const noteKeyWidth = 70
+export const noteKeyWidthHeightRatio = 1 / 6
+export const pianoHeight = noteKeyWidth / noteKeyWidthHeightRatio
+export const pianoZoom = .8
 
 export const Background = styled.div`
   position: absolute;
@@ -15,10 +21,12 @@ export const Background = styled.div`
 `
 
 export const BodyContainer = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   margin: auto;
   justify-content: center;
+  zoom: ${pianoZoom};
 `
 
 export const NoteName = styled.div`
@@ -34,11 +42,21 @@ export const NoteName = styled.div`
   }
 `
 
+export const SharpNote = styled.div`
+  padding-bottom: 8px;
+  color: var(--sharp-note-text-color);
+  text-shadow: 0 0 0 var(--sharp-note-text-color);
+`
+
+export const BaseNote = styled.div`
+  color: var(--base-note-text-color);
+  text-shadow: 0 0 0 var(--base-note-text-color);
+`
+
 export const KeyName = styled.div`
   margin-bottom: 12px;
   text-align: center;
   font-size: 14px;
-  user-select: none;
 
   .anticon svg {
     font-size: 16px;
@@ -61,6 +79,10 @@ export const Kbd = styled.kbd`
   border-radius: 3px;
   border: 1px solid var(--kbd-border-color);
   box-shadow: 0 1.5px 0 var(--kbd-border-color);
+
+  ::selection {
+    background: transparent;
+  }
 `
 
 export const FnKbd = styled(Kbd)`
@@ -72,8 +94,11 @@ export const FnKbd = styled(Kbd)`
 
 export const EmojiIcon = styled.span`
   color: transparent;
-  width: 14px;
-  overflow-x: hidden;
+  font-size: 12px;
+
+  ::selection {
+    background: transparent;
+  }
 `
 
 export const Piano = styled(ReactPiano)`
@@ -93,11 +118,15 @@ export const Piano = styled(ReactPiano)`
 
   .ReactPiano__Key--active {
     border: none;
-    background: var(--active-note-color);
-
+    
     &.ReactPiano__Key--natural {
       height: unset;
+      background: var(--active-note-color);
     }
+     
+    &.ReactPiano__Key--accidental {
+      background: var(--piano-header-background);
+    }    
 
     &.ReactPiano__Key--natural, &.ReactPiano__Key--accidental {
       .ReactPiano__NoteLabelContainer kbd {
@@ -115,6 +144,30 @@ export const Piano = styled(ReactPiano)`
 `
 
 export const StaveContainer = styled.div`
+  position: absolute;
+  bottom: 0;
   margin: 16px 10px auto;
-  background-color: #fff;
+  pointer-events: none;
+`
+
+export const SwitchContainer = styled.div`
+  position: fixed;
+  // piano is vertical center of view point, switch is 20px above it
+  bottom: calc(50vh + ${pianoHeight * pianoZoom / 2}px);
+  left: 0;
+  padding: 16px 0;
+  color: #fff;
+`
+
+export const Switch = styled(AntSwitch)`
+  border-color: #fff;
+  &.ant-switch-checked {
+    background-color: var(--active-note-color);
+  }
+`
+
+export const SwitchLabel = styled.span<{ activated?: boolean }>`
+  margin: auto 12px;
+  color: ${props => props.activated ? '#fff' : '#999'};
+  transition: all .3s;
 `

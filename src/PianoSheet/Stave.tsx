@@ -24,7 +24,7 @@ export enum Clef {
   bass = 'bass',
 }
 
-export interface ScoreProps {
+export interface StaveProps {
   className?: string,
   width?: number,
   noteRange: {
@@ -58,7 +58,7 @@ export const genVexNotes = (start: NoteCode, end: NoteCode): Flow.StaveNote[] =>
       }),
     )
 
-export const Score = (props: ScoreProps) => {
+export const StaveSheet = (props: StaveProps) => {
   const {
     className,
     width,
@@ -83,10 +83,10 @@ export const Score = (props: ScoreProps) => {
   }, [])
 
   const render = (renderer: Flow.Renderer) => {
-    renderer.resize(width, 150)
+    renderer.resize(width, 140)
     const context = renderer.getContext()
 
-    const bassStave = new Stave(10, 20, bassNotes.length * noteKeyWidth - 10)
+    const bassStave = new Stave(0, 20, bassNotes.length * noteKeyWidth)
       .addClef(Clef.bass)
       .setContext(context)
     bassStave.draw()
@@ -96,9 +96,9 @@ export const Score = (props: ScoreProps) => {
     bassBeams.forEach(beam => beam.setContext(context).draw())
 
     const trebleStave = new Stave(
-      bassNotes.length * noteKeyWidth + 10,
+      bassNotes.length * noteKeyWidth,
       20,
-      trebleNotes.length * noteKeyWidth - 10,
+      trebleNotes.length * noteKeyWidth,
     )
       .addClef(Clef.treble)
       .setContext(context)

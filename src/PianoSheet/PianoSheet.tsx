@@ -1,5 +1,4 @@
 import React from 'react'
-import styled from '@emotion/styled'
 import { NamedKey } from '../keyboard'
 import { NoteCode, NoteNameKey } from '../midi'
 import { FnPortalConfigMap, PortalConfigMap } from '../portal'
@@ -33,17 +32,6 @@ export const NoteLabel = (props: {
     </S.NoteName>
   )
 }
-
-export const SharpNote = styled.div`
-  padding-bottom: 8px;
-  color: var(--sharp-note-text-color);
-  text-shadow: 0 0 0 var(--sharp-note-text-color);
-`
-
-export const BaseNote = styled.div`
-  color: var(--base-note-text-color);
-  text-shadow: 0 0 0 var(--base-note-text-color);
-`
 
 export const NamedKeyLabel = (props: {
   noteCode: NoteCode,
@@ -103,19 +91,28 @@ export const NoteKey = (props: {
   isAccidental: boolean,
   portal: PortalConfigMap,
   fnPortal: FnPortalConfigMap,
+  isPlayMode: boolean,
 }) => {
-  const { noteCode, isAccidental, portal, fnPortal } = props
+  const {
+    noteCode,
+    isAccidental,
+    portal,
+    fnPortal,
+    isPlayMode,
+  } = props
 
   const noteLabel = <NoteLabel noteCode={noteCode} />
-  const NoteWrapper = isAccidental ? SharpNote : BaseNote
+  const NoteWrapper = isAccidental ? S.SharpNote : S.BaseNote
 
   return (
     <NoteWrapper>
-      <NamedKeyLabel
-        noteCode={noteCode}
-        portal={portal}
-        fnPortal={fnPortal}
-      />
+      {!isPlayMode && (
+        <NamedKeyLabel
+          noteCode={noteCode}
+          portal={portal}
+          fnPortal={fnPortal}
+        />
+      )}
       {isAccidental ? null : noteLabel}
     </NoteWrapper>
   )
