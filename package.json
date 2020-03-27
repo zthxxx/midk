@@ -1,6 +1,6 @@
 {
   "name": "midk",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "Mapping MIDI keypress to PC keyboard",
   "main": "index.js",
   "bin": {

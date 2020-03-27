@@ -32,11 +32,12 @@ export const loadRawConfigFile = (configPath: string): RawFileConfig | null => {
   }
 }
 
+export const configFileName = 'midk.yml'
 
 export const configFilePath = path.join(
   os.homedir(),
   `.${packageJson.name}`,
-  'midk.yml',
+  configFileName,
 )
 
 export const init = () => {
@@ -50,7 +51,10 @@ export const init = () => {
 
 chokidar
   .watch(
-    [configFilePath, 'index.ts'],
+    [
+      configFilePath,
+      path.join(__dirname, `../src/${configFileName}`),
+    ],
     {
       disableGlobbing: true,
       interval: 1000,
