@@ -12,6 +12,6 @@ try {
       },
     })
   }
-  const index = require('./src').default
+  const index = require('./src')
   module.exports = index
 }

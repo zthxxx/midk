@@ -2,4 +2,5 @@
 
 const midk = require('..')
 
+midk.init()
 midk.run()

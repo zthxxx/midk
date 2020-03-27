@@ -10,13 +10,16 @@ rules:
   # https://reactjs.org/docs/hooks-rules.html
   react-hooks/exhaustive-deps: off
 overrides:
+  - files: ['**/*.js']
+    rules:
+      '@typescript-eslint/no-require-imports': off
   - files: ['**/*.ts', '**/*.tsx']
     rules:
       no-unreachable: off
       no-unused-vars: off
-      "@typescript-eslint/no-unused-vars": off
+      '@typescript-eslint/no-unused-vars': off
       no-unused-expressions: off
-      "@typescript-eslint/no-unused-expressions":
+      '@typescript-eslint/no-unused-expressions':
         - error
         - allowShortCircuit: true
           allowTernary: true

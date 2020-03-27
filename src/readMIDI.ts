@@ -18,7 +18,6 @@ if (portCount < 1) {
   process.exit(1)
 }
 
-export default input
 
 export interface KeypressParams {
   status: MessageStatus,
@@ -30,17 +29,24 @@ export interface KeypressParams {
 // return true to stop processing
 export type KeypressHandler = (keypress: KeypressParams) => void | boolean
 
-export const handlersMap = new Map<MessageStatus, KeypressHandler[]>()
+export const handlersMap = new Map<MessageStatus, Set<KeypressHandler>>()
 
 export const regHandler = (status: MessageStatus, handler: KeypressHandler) => {
-  const handlers = handlersMap.get(status) ?? []
-  handlersMap.set(
-    status,
-    [
-      ...handlers,
-      handler,
-    ],
-  )
+  const handlers = handlersMap.get(status)
+  if (handlers) {
+    handlers.add(handler)
+    return
+  }
+  handlersMap.set(status, new Set([handler]))
+}
+
+export const removeHandler = (status: MessageStatus, handler: KeypressHandler) => {
+  const handlers = handlersMap.get(status)
+  handlers.delete(handler)
+}
+
+export const cleanHandlers = (status: MessageStatus) => {
+  handlersMap.set(status, new Set())
 }
 
 export const startListener = () => {
@@ -54,8 +60,8 @@ export const startListener = () => {
       message,
       timestamp,
     })
-    const handlers = handlersMap.get(status) ?? []
-    signale.info('[MIDI] find handlers', handlers.map(fun => fun.name))
+    const handlers = handlersMap.get(status) ?? new Set()
+    signale.info('[MIDI] find handlers', [...handlers].map(fun => fun.name))
     for (let handler of handlers) {
       if (handler({ status, channel, value, timestamp })) break
     }
