@@ -1,23 +1,7 @@
 // https://github.com/justinlatimer/node-midi
 import midi from 'midi'
+import { Message, MessageData, MessageStatus, Timestamp } from './midi'
 import signale from './signale'
-import {
-  MessageStatus,
-  MessageData,
-  Message,
-  Timestamp,
-} from './midi'
-
-export const input = new midi.Input()
-
-// Count the available input ports.
-const portCount = input.getPortCount()
-if (portCount < 1) {
-  // signale.error('Failed to find MIDI device', { portCount })
-  signale.error('Failed to find MIDI device', { portCount })
-  process.exit(1)
-}
-
 
 export interface KeypressParams {
   status: MessageStatus,
@@ -28,6 +12,13 @@ export interface KeypressParams {
 
 // return true to stop processing
 export type KeypressHandler = (keypress: KeypressParams) => void | boolean
+
+export const retryTimes = 20
+export const retryInterval = 3000
+
+export const sleep = (ms = 1000) => new Promise<void>(
+  (resolve) => setTimeout(() => resolve(), ms),
+)
 
 export const handlersMap = new Map<MessageStatus, Set<KeypressHandler>>()
 
@@ -49,7 +40,23 @@ export const cleanHandlers = (status: MessageStatus) => {
   handlersMap.set(status, new Set())
 }
 
-export const startListener = () => {
+export const startListener = async () => {
+  const input = new midi.Input()
+
+  for (let i = 1; i <= retryTimes; i++) {
+    // Count the available input ports.
+    if (input.getPortCount() > 0) {
+      break
+    }
+    signale.warn(`Cannot find MIDI input device, waiting for retry. (${i}/${retryTimes})`)
+    await sleep(retryInterval)
+  }
+
+  if (input.getPortCount() < 1) {
+    signale.error('Failed to find MIDI input device')
+    process.exit(1)
+  }
+
   // Get the name of a specified input port.
   // 0: first device
   input.getPortName(0)
