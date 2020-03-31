@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
-const midk = require('..')
+// package.json `main` field will change when electron build
+const midk = require('../index')
 
 midk.init()
 midk.run()

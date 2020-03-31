@@ -1,0 +1,25 @@
+# https://www.electron.build/configuration/configuration
+productName: MIDK
+
+extends: null
+
+buildDependenciesFromSource: true
+npmRebuild: true
+
+files:
+  - electron-starter.js
+  - build-app/**/*
+  - index.js
+  - bin/**/*
+  - src/midk.yml
+  - dist/**/*
+
+mac:
+  icon: ''
+
+extraMetadata:
+  main: electron-starter.js
+
+directories:
+  output: dist-app
+  buildResources: assets

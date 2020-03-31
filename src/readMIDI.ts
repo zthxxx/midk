@@ -13,7 +13,7 @@ export interface KeypressParams {
 // return true to stop processing
 export type KeypressHandler = (keypress: KeypressParams) => void | boolean
 
-export const retryTimes = 20
+export const retryTimes = Infinity
 export const retryInterval = 3000
 
 export const sleep = (ms = 1000) => new Promise<void>(
@@ -55,6 +55,7 @@ export const startListener = async () => {
   if (input.getPortCount() < 1) {
     signale.error('Failed to find MIDI input device')
     process.exit(1)
+    return
   }
 
   // Get the name of a specified input port.

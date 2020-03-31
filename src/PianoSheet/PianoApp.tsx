@@ -19,6 +19,7 @@ import 'antd/es/switch/style/index.css'
 import './index.css'
 
 
+const projectRepo = process.env.REACT_APP_PROJECT_REPO
 
 const { playMode, portal, fnPortal } = midkConfig as RawFileConfig
 const toggles: ToggleKeys = new Set(playMode.toggle.map(codeName => NoteCode[codeName]))
@@ -77,14 +78,16 @@ export const App = () => {
 
   return (
     <S.Background>
-      <GithubCorner
-        url={process.env.REACT_APP_PROJECT_REPO}
-        backgroundColor={`white`}
-        color={`var(--global-background)`}
-        svgStyle={{
-          position: 'fixed',
-        }}
-      />
+      {projectRepo && (
+        <GithubCorner
+          url={projectRepo}
+          backgroundColor={`white`}
+          color={`var(--global-background)`}
+          svgStyle={{
+            position: 'fixed',
+          }}
+        />
+      )}
       <PlayModeSwitch
         checked={isPlayMode.current}
         onChange={(checked) => {
