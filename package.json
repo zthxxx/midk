@@ -9,7 +9,7 @@
   "scripts": {
     "start": "bin/index.js",
     "dev": "rimraf dist && nodemon -w src -e js,ts -x bin/index.js",
-    "cheatsheet": "react-app-rewired start",
+    "cheatsheet": "HOST=localhost react-app-rewired start",
     "dev:app": "ELECTRON_START_URL=http://localhost:3000 npm run electron",
     "build:rollup": "rimraf dist && rollup -c",
     "build:cheatsheet": "react-app-rewired build",
@@ -103,7 +103,6 @@
     "rollup-plugin-progress": "^1.1.1",
     "rollup-plugin-typescript": "^1.0.1",
     "signale": "^1.4.0",
-    "svg-term-cli": "^2.1.1",
     "ts-node": "^8.5.2",
     "tslib": "^1.10.0",
     "typescript": "^3.8.3",
