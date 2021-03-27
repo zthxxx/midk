@@ -16,7 +16,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      CXX: g++-4.8
       # https://github.com/chalk/supports-color/blob/main/index.js#L21
       # https://github.com/chalk/supports-color/blob/main/index.js#L54
       FORCE_COLOR: true
@@ -38,13 +37,14 @@ jobs:
           registry-url: https://registry.npmjs.org
 
       - name: Install apt
-        run: sudo apt install libx11-dev libxtst-dev libasound2-dev libavformat-dev libass-dev g++-4.8 gcc-4.8
+        run: |
+          sudo apt install -y libx11-dev libxtst-dev libasound2-dev libavformat-dev libass-dev
 
       - name: Environment variables
         run: |
           env
+          gcc --version
           g++ --version
-          $CXX --version
 
       - name: Install npm
         run: |
