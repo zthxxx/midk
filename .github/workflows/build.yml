@@ -1,0 +1,70 @@
+# https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions
+
+name: Build for commit
+
+on:
+  push:
+    branches:
+      - '*'
+    tags-ignore:
+      - '*'
+  pull_request:
+    branches:
+      - '*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      CXX: g++-4.8
+      # https://github.com/chalk/supports-color/blob/main/index.js#L21
+      # https://github.com/chalk/supports-color/blob/main/index.js#L54
+      FORCE_COLOR: true
+
+    steps:
+      - name: Checkout
+        # https://github.com/actions/checkout
+        uses: actions/checkout@v2
+        with:
+          # Number of commits to fetch. 0 indicates all history.
+          # all history for changelog
+          fetch-depth: 1
+
+      - name: Setup node
+        # https://github.com/actions/setup-node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+          registry-url: https://registry.npmjs.org
+
+      - name: Install apt
+        run: sudo apt install libx11-dev libxtst-dev libasound2-dev libavformat-dev libass-dev g++-4.8 gcc-4.8
+
+      - name: Environment variables
+        run: |
+          env
+          g++ --version
+          $CXX --version
+
+      - name: Install npm
+        run: |
+          npm ci
+
+      - name: ESLint
+        run: |
+          npm run lint
+
+      - name: Build all
+        run: |
+          npm run build
+
+      - name: Build site
+        run: |
+          npm run build:site
+
+      - name: Deploy site
+        if: ${{ github.ref == 'refs/heads/master' }}
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build

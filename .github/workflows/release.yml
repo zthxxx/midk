@@ -1,0 +1,64 @@
+# https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions
+
+name: Release for tag
+
+on:
+  push:
+    tags:
+      - v*
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      CXX: g++-4.8
+      # https://github.com/chalk/supports-color/blob/main/index.js#L21
+      # https://github.com/chalk/supports-color/blob/main/index.js#L54
+      FORCE_COLOR: true
+
+    steps:
+      - name: Checkout
+        # https://github.com/actions/checkout
+        uses: actions/checkout@v2
+        with:
+          # Number of commits to fetch. 0 indicates all history.
+          # all history for changelog
+          fetch-depth: 1
+
+      - name: Setup node
+        # https://github.com/actions/setup-node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+          registry-url: https://registry.npmjs.org
+
+      - name: Install apt
+        run: sudo apt install libx11-dev libxtst-dev libasound2-dev libavformat-dev libass-dev g++-4.8 gcc-4.8
+
+      - name: Environment variables
+        run: |
+          env
+          g++ --version
+          $CXX --version
+
+      - name: Install npm
+        run: |
+          npm ci
+
+      - name: ESLint
+        run: |
+          npm run lint
+
+      - name: Build package
+        run: |
+          npm run build:rollup
+
+      - name: Publish to npm
+        # https://docs.github.com/en/actions/guides/publishing-nodejs-packages#publishing-packages-to-the-npm-registry
+        id: publish-to-npm
+        env:
+          # need set in GitHub repo - settings - secrets
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          cat ./.npmrc
+          npm publish
