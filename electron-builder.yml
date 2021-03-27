@@ -16,6 +16,8 @@ files:
 
 mac:
   icon: ''
+  # https://www.electron.build/code-signing#how-to-disable-code-signing-during-the-build-process-on-macos
+  identity: null
 
 extraMetadata:
   main: electron-starter.js

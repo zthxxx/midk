@@ -11,7 +11,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      CXX: g++-4.9
       # https://github.com/chalk/supports-color/blob/main/index.js#L21
       # https://github.com/chalk/supports-color/blob/main/index.js#L54
       FORCE_COLOR: true
@@ -34,16 +33,13 @@ jobs:
 
       - name: Install apt
         run: |
-          sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
-          sudo apt-get update -y
-          sudo apt install -y libx11-dev libxtst-dev libasound2-dev libavformat-dev libass-dev gcc-4.9 g++-4.9
+          sudo apt install -y libx11-dev libxtst-dev libasound2-dev libavformat-dev libass-dev
 
       - name: Environment variables
         run: |
           env
           gcc --version
           g++ --version
-          $CXX --version
 
       - name: Install npm
         run: |
