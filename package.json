@@ -17,7 +17,7 @@
     "build:app": "npm-run-all build:cheatsheet:app electron:pack",
     "build": "npm-run-all clean build:rollup build:app build:cheatsheet",
     "electron": "electron electron-starter.js",
-    "electron:pack": "electron-builder --mac",
+    "electron:pack": "electron-builder --mac --publish=never",
     "debug:app:prod": "./dist-app/mac/MIDK.app/Contents/MacOS/MIDK",
     "clean": "rimraf coverage dist dist-app build build-app",
     "lint": "TIMING=1 eslint --ext js,jsx,ts,tsx src",
