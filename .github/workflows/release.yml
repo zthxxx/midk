@@ -37,6 +37,7 @@ jobs:
 
       - name: Environment variables
         run: |
+          set -ex
           env
           gcc --version
           g++ --version

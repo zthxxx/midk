@@ -1,6 +1,6 @@
 # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions
 
-name: Build for commit
+name: Build app for commit
 
 on:
   push:
@@ -14,7 +14,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     env:
       # https://github.com/chalk/supports-color/blob/main/index.js#L21
       # https://github.com/chalk/supports-color/blob/main/index.js#L54
@@ -36,12 +36,9 @@ jobs:
           node-version: 14.x
           registry-url: https://registry.npmjs.org
 
-      - name: Install apt
-        run: |
-          sudo apt install -y libx11-dev libxtst-dev libasound2-dev libavformat-dev libass-dev
-
       - name: Environment variables
         run: |
+          set -ex
           env
           gcc --version
           g++ --version
@@ -58,12 +55,9 @@ jobs:
         run: |
           npm run build
 
-      - name: Build site
-        run: |
-          npm run build:site
-
       - name: Deploy site
         if: ${{ github.ref == 'refs/heads/master' }}
+        # https://github.com/peaceiris/actions-gh-pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
