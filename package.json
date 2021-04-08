@@ -77,7 +77,7 @@
     "chokidar": "3.3.1",
     "coveralls": "3.0.9",
     "customize-cra": "0.9.1",
-    "electron": "^8.2.3",
+    "electron": "^9.0.0",
     "electron-builder": "22.5.1",
     "eloc": "1.2.1",
     "emotion": "10.0.27",
